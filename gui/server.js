@@ -5,8 +5,9 @@ const Mustache = require('mustache')
 const fs = require('fs')
 const port = 8080
 
-
 let actions = ['Fernando Gonzalez']
+
+app.use(express.static('public'))
 
 app.get('/', function(req,res){
     const template = fs.readFileSync('templates/index.html', 'utf8');
@@ -20,5 +21,3 @@ app.get('/', function(req,res){
 //app.get('/', (req, res) => res.send('Hello From Express'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-//test 
