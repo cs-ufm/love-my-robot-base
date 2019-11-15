@@ -1,5 +1,3 @@
-import cozmo
-from flask import Flask
 app = Flask(__name__)
 from datetime import datetime
 import os
@@ -49,9 +47,3 @@ def hello_world():
     cozmo.run_program(cozmo_program)
 
     return 'Hello, World!'''
-
-
-#if __name__ == "__main__":
- #   app.run(host="0.0.0.0")
-
-generate_code(drive['DRIVE'].format(69.9, 50.0))
