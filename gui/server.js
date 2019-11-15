@@ -5,10 +5,13 @@ const Mustache = require('mustache')
 const fs = require('fs')
 const port = 8080
 
+
+let actions = ['Fernando Gonzalez']
+
 app.get('/', function(req,res){
     const template = fs.readFileSync('templates/index.html', 'utf8');
 
-    const renderIndex = Mustache.render(template);
+    const renderIndex = Mustache.render(template, {actions});
 
     res.status(200).send(renderIndex)
 })
