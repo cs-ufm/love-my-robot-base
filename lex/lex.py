@@ -26,12 +26,12 @@ def command_center_drive(funct, arg1=None, arg2=None, arg3=None):
 
 def generate_code(test):
     truename = datetime.now().minute
-    with open('cozmo_generated_program.py', 'w') as f:
+    with open('transpiled/cozmo_generated_program.py', 'w') as f:
         f.write('import datetime \nimport cozmo\nclass transpiled:\n\n  def __init__(self, robot: cozmo.robot.Robot, cube: cozmo.objects.LightCube):\n      self.robot = robot\n      self.cube = cube\n\n  def cozmo_program(self, robot: cozmo.robot.Robot):\n      measure = cozmo.util\n'+test+'\n  def run(self):\n      cozmo.run_program(self.cozmo_program)\nCOZMO = transpiled(cozmo.robot.Robot, cozmo.objects.LightCube)\nCOZMO.run()')
 
     #import cozmo_generated_program as p
     
-    os.rename(r'cozmo_generated_program.py', r'cozmo_generated_program'+str(truename)+r'.py')
+    os.rename(r'transpiled/cozmo_generated_program.py', r'transpiled/cozmo_generated_program'+str(truename)+r'.py')
 
 
 #revisar COZMO.UTIL para sacar medidas y datos
@@ -41,6 +41,7 @@ drive  = {
     'PICK': '      robot.drive_off_charger_contacts()',
     'DRIVE': '      robot.drive_straight(measure.distance_mm({}), measure.Speed({})).wait_for_completed()',
     'DRIVE_OFF': cozmo_off
+    'ROLL_CUBE': 'async def roll_a_cube(robot: cozmo.robot.Robot):\n    await robot.set_head_angle(degrees(-5.0)).wait_for_completed()\n    print("Cozmo is waiting until he sees a cube")\n    '
 }
 arg1 ='"HELLO FLASK"'
 '''@app.route('/')
