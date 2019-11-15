@@ -42,7 +42,7 @@ drive  = {
     'DRIVE': '      robot.drive_straight(measure.distance_mm({}), measure.Speed({})).wait_for_completed()',
     'DRIVE_OFF': cozmo_off
 }
-arg1 ='"NEGRO MARICON"'
+arg1 ='"HELLO FLASK"'
 '''@app.route('/')
 def hello_world():
     cozmo.run_program(cozmo_program)
