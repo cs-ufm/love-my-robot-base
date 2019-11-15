@@ -1,6 +1,6 @@
 { "funciones": 
     {"SAY": [{ 
-      
+      "robot.say_text": "ejemplo"
       
     }],
     "TURN": [{
@@ -15,6 +15,7 @@
     }],
 
     "DRIVE_OFF":[{
+        "Drive_off": "aqui va el codigo transpilado"
 
     }],
     "ROLL_CUBE":[{
