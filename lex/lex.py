@@ -1,3 +1,7 @@
+
+from flask import Flask,render_template
+import json
+
 app = Flask(__name__)
 from datetime import datetime
 import os
@@ -38,7 +42,7 @@ drive  = {
     'TURN': '      robot.turn_in_place(measure.degrees({}), measure.Speed({})).wait_for_completed()',
     'PICK': '      robot.drive_off_charger_contacts()',
     'DRIVE': '      robot.drive_straight(measure.distance_mm({}), measure.Speed({})).wait_for_completed()',
-    'DRIVE_OFF': cozmo_off
+    'DRIVE_OFF': cozmo_off,
     'ROLL_CUBE': 'async def roll_a_cube(robot: cozmo.robot.Robot):\n    await robot.set_head_angle(degrees(-5.0)).wait_for_completed()\n    print("Cozmo is waiting until he sees a cube")\n    '
 }
 arg1 ='"HELLO FLASK"'
@@ -46,4 +50,7 @@ arg1 ='"HELLO FLASK"'
 def hello_world():
     cozmo.run_program(cozmo_program)
 
-    return 'Hello, World!'''
+    return render_template("index.html")'''
+
+
+
