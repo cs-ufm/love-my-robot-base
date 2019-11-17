@@ -5,14 +5,20 @@ const Mustache = require('mustache')
 const fs = require('fs')
 const port = 8080
 
-let actions = ['Fernando Gonzalez']
 
 app.use(express.static('public'))
 
-app.get('/', function(req,res){
-    const template = fs.readFileSync('templates/index.html', 'utf8');
+app.get('/', function(req, res){
+    const template = fs.readFileSync('views/index.html', 'utf8');
 
-    const renderIndex = Mustache.render(template, {actions});
+    // get info fron todo.json
+    const todo_string = fs.readFileSync('./todo.json', 'utf8');
+    const actions = JSON.parse(todo_string);
+
+    //include menu.html
+    const partial = fs.readFileSync('views/menu.html', 'utf8');
+
+    const renderIndex = Mustache.render(template, {actions}, {partial});
 
     res.status(200).send(renderIndex)
 })
