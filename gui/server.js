@@ -16,9 +16,9 @@ app.get('/', function(req, res){
     const actions = JSON.parse(todo_string);
 
     //include menu.html
-    const partial = fs.readFileSync('views/menu.html', 'utf8');
+    const menu = fs.readFileSync('views/menu.html', 'utf8');
 
-    const renderIndex = Mustache.render(template, {actions}, {partial});
+    const renderIndex = Mustache.render(template, {actions}, {menu});
 
     res.status(200).send(renderIndex)
 })
