@@ -5,6 +5,7 @@ const Mustache = require('mustache')
 const fs = require('fs')
 const port = 8080
 
+let action = []
 
 app.use(express.static('public'))
 
