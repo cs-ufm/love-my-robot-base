@@ -3,3 +3,24 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
+
+.move{
+    background-color: pink;
+    width: 20%;
+}
+.sounds{
+    background-color: skyblue;
+    width: 20%;
+}
+.lights{
+    background-color: lightgoldenrodyellow;
+    width: 20%;
+}
+.animations{
+    background-color: lightseagreen;
+    width: 20%;
+}
+.cubes{    
+    background-color: lightgreen;
+    width: 20%;
+}
