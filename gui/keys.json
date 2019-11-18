@@ -1,0 +1,21 @@
+{
+    "move" : {
+        "drive":["forward", "backward", "square"],
+        "turn" : ["left", "right"],
+        "lift" : ["lift"]
+    },
+
+    "sounds" : ["yes", "count", "math", "say", "song"],
+
+    "cozmo-lights" : ["red", "blue", "green", "white"],
+
+    "animations" : ["happy", "sad"],
+
+    "cubes" : {
+        "lights" : ["red", "blue", "green"],
+        "pickup" : ["pickpup"],
+        "drop" : ["drop"],
+        "roll" : ["roll"],
+        "wheelie" : ["wheelie"]
+    }
+}
