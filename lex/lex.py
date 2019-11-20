@@ -2,13 +2,14 @@ from flask import Flask
 import redis, json, threading, time, asyncio
 
 app = Flask(__name__)
-r = redis.StrictRedis(host='localhost', port=6379, db=0)
+r = redis.StrictRedis(host="localhost", port=6379, db=0)
+#cmmnt here
 p = r.pubsub(ignore_subscribe_messages=True)
 
-channel = 'test'
+
+channel = 'do'
 
 global_json = None
-message = None
 
 @app.route("/")
 def index():
@@ -18,34 +19,42 @@ def index():
 def message_handler(message):
     """Converts message string to JSON.
 
-    Once invoked through subGET() it handles
+    Once invoked through asyncSUB() it handles
     the message by converting it from string
     to JSON and assigns it to 'global_json'
     """
-    print("\nRan: message_handler()")
     print(f"MY HANDLER: '{message.get('data')}")
-
+    json_message = None
     message_data = message.get('data')
 
     if message_data:
-        print("\nIF PASSED")
-        # json_string = message.get('data')
-        # print(f"json_string:{json_string}") # DELETE LATER 
-        
-        json_message = json.loads(message_data)
-        print(f"json.get(name):{json_message.get('name')}") # DELETE LATER 
-        # print(f"message: {message}") # DELETE LATER 
+        json_message = json.loads(message_data) # converts to JSON type
+        _testPrint(json_message)
         global_json = json_message
+        
 
+def _testPrint(JSON):
+    """Temporary func. CHANGE LATER
 
+    As the underscore implies, this is just
+    a temporary function. Its purpose is to
+    prove that 'message_handler()' is able to
+    process the JSON and send it to any custom
+    method. That custom mentioned for now is 
+    '_testPrint(JSON)' for now, however it NEEDS
+    to be changed to a function that parses the JSON
+    and understands code from it; this is not yet 
+    implemented.
+    """
+    print(f"\nCUSTOM: {JSON}")
 
-def subGET():
+def asyncSUB():
     """Subscribes to channel and sends message 
     to handler.
 
     When in need of reading messages this is the 
-    function call. Once called it will subscribe 
-    asyncronously to channel (where channel = 'CHANNEL_NAME' 
+    function to call. Once called it will subscribe 
+    asynchronously to channel (where channel = 'CHANNEL_NAME' 
     defined on the first lines of this file).
 
     p.run_in_thread(): Behind the scenes, this is
@@ -55,34 +64,26 @@ def subGET():
 
     Coroutine: Coroutines are generalization of subroutines. 
     They are used for cooperative multitasking where a process 
-    voluntarily yield (give away) control periodically or when 
+    voluntarily yields (give away) control periodically or when 
     idle in order to enable multiple applications to be run 
     simultaneously.
     """
     p.subscribe(**{channel: message_handler})
     thread = p.run_in_thread(sleep_time=0.1, daemon=True)
-    print("\nsubGET(): Ran: subGET()")
     message = p.get_message()
-    print(f"subGET: message: {message}")
-    # json_message = None
-    # print("Running subJSON()")
-    # for message in p.listen():
-    #     # print(f"message.get(data):{message.get('data')}") # DELETE LATER
-    #     message_data = message.get('data')
+    print(f"asyncSUB: message: {message}")
 
 
-# new_json = subJSON()
-
-# print(f"new_json.get('name'):{new_json.get('name')}")
-# print("NOT BLOCKING")
 
 if __name__ == "__main__":
-    subGET()
-    if global_json:
-        print(f"global_json.get('name'):{global_json.get('name')}")
+    """We start asyncSUB() and Flask.
+
+    We call the main function 'asyncSUB()' to subscribe asynchronously to 
+    the channel; 
+    this is were the fun begins.
+    """
+    asyncSUB()
     app.run(host="0.0.0.0")
-    # asyncio.run(subJSON())
-    # print("NOT BLOCKING")
     
     
 
