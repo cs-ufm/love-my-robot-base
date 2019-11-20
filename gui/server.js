@@ -18,7 +18,7 @@ var j={
 
 var _code={
     "request_timestamp":"2019-08-11T12:99",
-    "lmr":["SAY NICE","LIFT -0.5"]
+    "lmr":["SAY NICE","LIFT -0.5", "MOVE 150 50"]
 }
 
 function JSONpub(json) {

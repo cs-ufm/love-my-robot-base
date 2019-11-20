@@ -22,6 +22,10 @@ def move(distance, speed):
     # Drive forwards for 150 millimeters at 50 millimeters-per-second.
     #robot.drive_straight(distance_mm(150), speed_mmps(50)).wait_for_completed()
     return f"    robot.drive_straight(distance_mm({distance}), speed_mmps({speed}).wait_for_completed())"
+
+def moveback(negativedistance, speed):
+    # Drive backwards for 150 millimeters at 50 millimeters-per-second.
+    return f"    robot.drive_straight(distance_mm({negativedistance}), speed_mmps({speed}).wait_for_completed())"
     
     
 
@@ -44,7 +48,9 @@ def message_handler(message):
 
 LMR_to_func_dict = {
      "SAY" : sayhello,
-     "LIFT": lift
+     "LIFT": lift,
+     "MOVE": move,
+     "MOVEBACK": moveback
 
  }
 
@@ -103,12 +109,10 @@ def asyncSUB():
     print(f"asyncSUB: message: {message}")
 
 
-
-
-
-def moveback(robot: cozmo.robot.Robot):
-    # Drive backwards for 150 millimeters at 50 millimeters-per-second.
-    robot.drive_straight(distance_mm(-150), speed_mmps(50)).wait_for_completed()
+#MOVE
+# def moveback(robot: cozmo.robot.Robot):
+#     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
+#     robot.drive_straight(distance_mm(-150), speed_mmps(50)).wait_for_completed()
 
 def turn(robot: cozmo.robot.Robot):
     # Turn 90 degrees to the left.
@@ -147,10 +151,6 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0")
     
     
-
-
-
-
 @app.route('/')
 def hello_world():
     cozmo.run_program(Elephant)
