@@ -1,4 +1,4 @@
-import asyncio
+ import asyncio
 import sys
 import cozmo
 import time
@@ -36,7 +36,7 @@ def lift(robot: cozmo.robot.Robot):
     # Tell Cozmo to drive the left wheel at 25 mmps (millimeters per second),
     # and the right wheel at 50 mmps (so Cozmo will drive Forwards while also
     # turning to the left
-    #robot.drive_wheels(25, 50)
+    #robot.drive_wheels(25, 50) 
 
 #Animations
 def celebration(robot: cozmo.robot.Robot):
@@ -45,6 +45,8 @@ def celebration(robot: cozmo.robot.Robot):
 def Hiccup(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
+def Surprise(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()  
 
 
 #Animals
