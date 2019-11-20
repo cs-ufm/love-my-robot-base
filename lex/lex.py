@@ -16,31 +16,49 @@ def index():
 
 
 def message_handler(message):
+    """Converts message string to JSON.
+
+    Once invoked through subGET() it handles
+    the message by converting it from string
+    to JSON and assigns it to 'global_json'
+    """
     print("\nRan: message_handler()")
-    print(f"MY HANDLER: '{message['data']}")
-    # """Reads message to JSON.
+    print(f"MY HANDLER: '{message.get('data')}")
 
-    # Reads constantly if there's any new message 
-    # in the channel, if so it parses it into
-    # a JSON format and returns it.
-    # """
-    # print("\nRan: message_handler()")
-    # print('MY HANDLER: ', message['data'])
-    # message_data = message.get('data')
+    message_data = message.get('data')
 
-    # if not isinstance(message_data, int):
-    #     # print("\nIF PASSED")
-    #     json_string = message.get('data')
-    #     # print(f"json_string:{json_string}") # DELETE LATER 
+    if message_data:
+        print("\nIF PASSED")
+        # json_string = message.get('data')
+        # print(f"json_string:{json_string}") # DELETE LATER 
         
-    #     json_message = json.loads(json_string)
-    #     # print(f"json.get(name):{json_message.get('name')}") # DELETE LATER 
-    #     # print(f"message: {message}") # DELETE LATER 
-    #     global_json = json_message
+        json_message = json.loads(message_data)
+        print(f"json.get(name):{json_message.get('name')}") # DELETE LATER 
+        # print(f"message: {message}") # DELETE LATER 
+        global_json = json_message
 
 
 
 def subGET():
+    """Subscribes to channel and sends message 
+    to handler.
+
+    When in need of reading messages this is the 
+    function call. Once called it will subscribe 
+    asyncronously to channel (where channel = 'CHANNEL_NAME' 
+    defined on the first lines of this file).
+
+    p.run_in_thread(): Behind the scenes, this is
+    simply a wrapper around get_message() that runs 
+    in a separate thread, and use asyncio.run_coroutine_threadsafe() 
+    to run coroutines.
+
+    Coroutine: Coroutines are generalization of subroutines. 
+    They are used for cooperative multitasking where a process 
+    voluntarily yield (give away) control periodically or when 
+    idle in order to enable multiple applications to be run 
+    simultaneously.
+    """
     p.subscribe(**{channel: message_handler})
     thread = p.run_in_thread(sleep_time=0.1, daemon=True)
     print("\nsubGET(): Ran: subGET()")
