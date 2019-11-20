@@ -1,9 +1,9 @@
-import asyncio
+# import asyncio
 import sys
 import cozmo
-import time
+# import time
 from flask import Flask
-import redis, json, threading, time, asyncio
+import redis, json, threading, time, asyncio, os
 
 from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light
 from cozmo.util import degrees, distance_mm, radians, speed_mmps
@@ -14,57 +14,56 @@ r = redis.StrictRedis(host="localhost", port=6379, db=0)
 p = r.pubsub(ignore_subscribe_messages=True)
 channel = 'do'
 global_json = None
+robot= cozmo.robot.Robot
+python_file = "test1.py"
+# #Cozmo functions
+def sayhello(string_to_say):
+    return f"    robot.say_text({string_to_say}).wait_for_completed()"
 
-#Cozmo functions
-async def sayhello(robot: cozmo.robot.Robot):
-    async with robot.perform_off_charger():
-        action = robot.say_text("Hello World")
-        await action.wait_for_completed()
+# def move(robot: cozmo.robot.Robot):
+#     # Drive forwards for 150 millimeters at 50 millimeters-per-second.
+#     robot.drive_straight(distance_mm(150), speed_mmps(50)).wait_for_completed()
 
-def move(robot: cozmo.robot.Robot):
-    # Drive forwards for 150 millimeters at 50 millimeters-per-second.
-    robot.drive_straight(distance_mm(150), speed_mmps(50)).wait_for_completed()
+# def moveback(robot: cozmo.robot.Robot):
+#     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
+#     robot.drive_straight(distance_mm(-150), speed_mmps(50)).wait_for_completed()
 
-def moveback(robot: cozmo.robot.Robot):
-    # Drive backwards for 150 millimeters at 50 millimeters-per-second.
-    robot.drive_straight(distance_mm(-150), speed_mmps(50)).wait_for_completed()
+# def turn(robot: cozmo.robot.Robot):
+#     # Turn 90 degrees to the left.
+#     # Note: To turn to the right, just use a negative number.
+#     robot.turn_in_place(degrees(90)).wait_for_completed()
 
-def turn(robot: cozmo.robot.Robot):
-    # Turn 90 degrees to the left.
-    # Note: To turn to the right, just use a negative number.
-    robot.turn_in_place(degrees(90)).wait_for_completed()
+# def lift(robot: cozmo.robot.Robot):
+#     # Tell the head motor to start lowering the head (at 5 radians per second)
+#     #robot.move_head(-5)
+#     # Tell the lift motor to start lowering the lift (at 5 radians per second)
+#     robot.move_lift(-5)
+#     # Tell Cozmo to drive the left wheel at 25 mmps (millimeters per second),
+#     # and the right wheel at 50 mmps (so Cozmo will drive Forwards while also
+#     # turning to the left
+#     #robot.drive_wheels(25, 50)
 
-def lift(robot: cozmo.robot.Robot):
-    # Tell the head motor to start lowering the head (at 5 radians per second)
-    #robot.move_head(-5)
-    # Tell the lift motor to start lowering the lift (at 5 radians per second)
-    robot.move_lift(-5)
-    # Tell Cozmo to drive the left wheel at 25 mmps (millimeters per second),
-    # and the right wheel at 50 mmps (so Cozmo will drive Forwards while also
-    # turning to the left
-    #robot.drive_wheels(25, 50)
+# #Animations
+# def celebration(robot: cozmo.robot.Robot):
+#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
-#Animations
-def celebration(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
+# #Animals
+# def duck(robot: cozmo.robot.Robot):
+#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()    
 
-#Animals
-def duck(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()    
+# def frog(robot: cozmo.robot.Robot):
+#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()  
 
-def frog(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()  
+# @app.route("/e")
 
-@app.route("/e")
+# def index():
+#     return "Hello from Python!"
 
-def index():
-    return "Hello from Python!"
+# @app.route('/')
+# def hello_world():
+#     cozmo.run_program(happy="test")
 
-@app.route('/')
-def hello_world():
-    cozmo.run_program(happy)
-
-    return 'Hello, World!'
+#     return 'Hello, World!'
 
 
 def message_handler(message):
@@ -80,24 +79,42 @@ def message_handler(message):
 
     if message_data:
         json_message = json.loads(message_data) # converts to JSON type
-        _testPrint(json_message)
+        function_getter_from_JSON(json_message)
         global_json = json_message
         
 
-def _testPrint(JSON):
-    """Temporary func. CHANGE LATER
+LMR_to_func_dict = {
+     "SAY" : sayhello
+ }
 
-    As the underscore implies, this is just
-    a temporary function. Its purpose is to
-    prove that 'message_handler()' is able to
-    process the JSON and send it to any custom
-    method. That custom mentioned for now is 
-    '_testPrint(JSON)' for now, however it NEEDS
-    to be changed to a function that parses the JSON
-    and understands code from it; this is not yet 
-    implemented.
+def function_getter_from_JSON(JSON):
+    """Receives a JSON and extractrs the LMR
+    function and param and passes it as string.
+
+    Do desc later.
     """
-    print(f"\nCUSTOM: {JSON}")
+    functions_and_params = []
+    functions_and_params = JSON.get('lmr')
+    f = open(python_file, "w")
+    f.write("import cozmo\n")
+    f.write("from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light\n")
+    f.write("from cozmo.util import degrees, distance_mm, radians, speed_mmps\n")
+    f.write("def cozmo_program(robot: cozmo.robot.Robot):\n")
+        
+    for eachFuncParam in functions_and_params:
+        
+        str_func = eachFuncParam.split(" ")[0]
+        str_param = eachFuncParam.split(" ")[1]
+
+        function = LMR_to_func_dict.get(str_func)
+        string_print = function(f"'{str_param}'")
+        f.write(f"{string_print}\n")
+
+    f.write("cozmo.run_program(cozmo_program)\n")
+    f.close()
+    os.system(f"python3 {python_file}")
+
+
 
 def asyncSUB():
     """Subscribes to channel and sends message 

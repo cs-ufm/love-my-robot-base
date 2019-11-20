@@ -16,6 +16,11 @@ var j={
     "name":"Andrea"
 };
 
+var _code={
+    "request_timestamp":"2019-08-11T12:99",
+    "lmr":["SAY NICE"]
+}
+
 function JSONpub(json) {
     /**
      * Receives JSON and publishes it as a string.
@@ -42,7 +47,7 @@ function stateChange(newState) {
     setTimeout(function () {
         if (newState == -1) {
             console.log("Printing stuff")
-            JSONpub(j);
+            JSONpub(_code);
         }
     }, 5000);
 }
