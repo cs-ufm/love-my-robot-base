@@ -42,12 +42,17 @@ def lift(robot: cozmo.robot.Robot):
 def celebration(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
+def Hiccup(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
+
+
+
 #Animals
 def duck(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()    
 
-def frog(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()  
+def Elephant(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
 
 
 
@@ -57,7 +62,7 @@ def index():
 
 @app.route('/')
 def hello_world():
-    cozmo.run_program(happy)
+    cozmo.run_program(Elephant)
 
     return 'Hello, World!'
 
