@@ -24,7 +24,7 @@ def sayhello(string_to_say):
 
 def Count(number):
     int(number)
-    return f"    for i in range({number}):\n    robot.say_text(str(i+1)).wait_for_completed()"
+    return f"    for i in range({number}):\n        robot.say_text(str(i+1)).wait_for_completed()"
 
 def lift(numbertolift):
     float(numbertolift)
@@ -117,12 +117,15 @@ def message_handler(message):
 
 LMR_to_func_dict = {
      "SAY" : sayhello,
+     "COUNT": Count,
      "LIFT": lift,
      "MOVE": move,
      "MOVEBACK": moveback,
      "TURN": turn,
      "WIN": win,
-     "HICCUP": Hiccup
+     "HICCUP": Hiccup,
+     "SURPRISE": Surprise,
+     "EXCITED": Excited
  }
 
 def function_getter_from_JSON(JSON):
