@@ -27,6 +27,20 @@ def Count(number):
     int(number)
     return f"    for i in range({number}):\n        robot.say_text(str(i+1)).wait_for_completed()"
 
+def Yes(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabYes).wait_for_completed()"
+
+# Soung
+def sound(unused_param):
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
+
+def sound80s(unused_param):
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoop)"
+
+def soundStop(unused_param):
+    return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
+
+
 def lift(numbertolift):
     float(numbertolift)
     return f"    robot.move_lift({numbertolift})"
@@ -81,11 +95,33 @@ def Sneeze(unused_param):
 def Scared(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScared).wait_for_completed()"
 
-def BackpackBlue(unused_param):   
-    return f"    robot.set_all_backpack_lights(cozmo.lights.blue_light)"
+def PartyMode(unused_param):
+    var_string = "    for i in range(10):\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.red_light)\n"    
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.green_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.blue_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_center_backpack_lights(cozmo.lights.white_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.off_light)"
+    var_string = "        time.sleep(0.1)"
+    return var_string
 
+def Lights(param):
+    param = param.lower()
+    return f"    robot.set_all_backpack_lights(cozmo.lights.+'{param}'+_light)\n        time.sleep(1000)"
 
+#EXTRAS ANIMALS
+def duck(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()"
 
+def Elephant(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()"
+
+def Sheep(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSheep).wait_for_completed()"
 
 
     
@@ -125,6 +161,8 @@ def message_handler(message):
 LMR_to_func_dict = {
      "SAY" : sayhello,
      "COUNT": Count,
+     "YES": Yes,
+     "SOUND": sound,
      "LIFT": lift,
      "MOVE": move,
      "MOVEBACK": moveback,
@@ -133,7 +171,12 @@ LMR_to_func_dict = {
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
      "EXCITED": Excited,
-     "LIGHTBLUE": BackpackBlue
+     "SNEEZE": Sneeze,
+     "SCARED": Scared,
+     "PARTY": PartyMode,
+     "LIGHT": Lights,
+     "DUCK": duck,
+     "ELEPHANT": Elephant
 }
 
 def function_getter_from_JSON(JSON):
@@ -201,26 +244,6 @@ def asyncSUB():
     message = p.get_message()
     print(f"asyncSUB: message: {message}")
 
-
-
-
-#Animals
-def duck(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()    
-
-def Elephant(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
-
-# Sound
-
-def sound():
-    return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
-
-def sound80s():
-    return f"    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoop)"
-
-def soundStop():
-    return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
 
 # Lights
 
