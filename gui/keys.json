@@ -1,21 +1,87 @@
-{
-    "move" : {
-        "drive":["forward", "backward", "square"],
-        "turn" : ["left", "right"],
-        "lift" : ["lift"]
+[
+    {
+        "name": "move",
+        "options": [
+            {
+                "name": "forward",
+                "code": "MOVE",
+                "description" : "Make Cozmo go forward"
+            },
+            {
+                "name": "backward",
+                "code": "MOVE"
+            },
+            {
+                "name": "square",
+                "code": ""
+            },
+            {
+                "name": "left",
+                "code": "TURN"
+            },
+            {
+                "name": "right",
+                "code": "TURN"
+            },
+            {
+                "name": "lift",
+                "code": "LIFT"
+            }
+        ]
     },
-
-    "sounds" : ["yes", "count", "math", "say", "song"],
-
-    "cozmo-lights" : ["red", "blue", "green", "white"],
-
-    "animations" : ["happy", "sad"],
-
-    "cubes" : {
-        "lights" : ["red", "blue", "green"],
-        "pickup" : ["pickpup"],
-        "drop" : ["drop"],
-        "roll" : ["roll"],
-        "wheelie" : ["wheelie"]
+    {
+        "name": "sounds",
+        "options": [
+            {
+                "name": "yes",
+                "code": "YES"
+            },
+            {
+                "name": "count",
+                "code": "COUNT"
+            },
+            {
+                "name": "math",
+                "code": "MATH"
+            },
+            {
+                "name": "song",
+                "code": "SOUND"
+            }
+        ]
+    },
+    {
+        "name": "cozmo-lights",
+        "options": [
+            {
+                "name": "red",
+                "code": "LIGHT RED"
+            },
+            {
+                "name": "blue",
+                "code": "LIGHT BLUE"
+            },
+            {
+                "name": "green",
+                "code": "LIGHT GREEN"
+            },
+            {
+                "name": "white",
+                "code": "LIGHT WHITE"
+            }
+        ]
+    },
+    {
+        "name": "animations",
+        "options": [
+            {
+                "name": "happy",
+                "code": "ANMIATION"
+            },
+            {
+                "name": "sad",
+                "code": "ANIMATION"
+            }
+        ]
     }
-}
+]

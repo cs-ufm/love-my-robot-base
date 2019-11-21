@@ -3,24 +3,73 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
-
-.move{
+.menu{
+    width: 20%;
+    height: 20%;
+    text-align: center;
+    padding: 70px 0;
+    font-size: large;
+}
+.move {
     background-color: pink;
-    width: 20%;
 }
-.sounds{
+ul.move {
+    display: none;
+}
+.sounds {
     background-color: skyblue;
-    width: 20%;
 }
-.lights{
+ul.sounds {
+    display: none;
+}
+.cozmo-lights {
     background-color: lightgoldenrodyellow;
-    width: 20%;
 }
-.animations{
+ul.cozmo-lights {
+    display: none;
+}
+.animations {
     background-color: lightseagreen;
-    width: 20%;
 }
-.cubes{    
+ul.animations {
+    display: none;
+}
+.cubes {    
     background-color: lightgreen;
-    width: 20%;
+}
+ul.cubes {
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+@media screen and (max-width: 900px) {
+ul.sidenav {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+ul.sidenav li a {
+    float: left;
+    padding: 15px;
+}
+
+div.content {margin-left: 0;}
+}
+  
+@media screen and (max-width: 400px) {
+ul.sidenav li a {
+    text-align: center;
+    float: none;
+}
 }

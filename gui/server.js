@@ -21,7 +21,7 @@ app.get('/', function(req, res){
     //include menu.html
     const menu = fs.readFileSync('views/menu.html', 'utf8');
 
-    const renderIndex = Mustache.render(template, {actions, keys}, {menu});
+    const renderIndex = Mustache.render(template, {menuOptions: keys}, {menu});
 
     res.status(200).send(renderIndex)
 })

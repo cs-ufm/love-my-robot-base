@@ -1,76 +1,22 @@
-<ul class = "move">
-    <li>
-        Move
-        <ul>
-            <li>
-                Drive
-                <ul>
-                    {{#keys.move.drive}}
-                        <li>
-                            {{.}}
-                        </li>
-                    {{/keys.move.drive}}
-                </ul>
-            </li>
-            <li>
-                Turn
-                <ul>
-                    {{#keys.move.turn}}
-                        <li>
-                            {{.}}
-                        </li>
-                    {{/keys.move.turn}}
-                </ul>
-            </li>
-            <li>
-                Lift
-                <ul>
-                    {{#keys.move.lift}}
-                        <li>
-                            {{.}}
-                        </li>
-                    {{/keys.move.lift}}
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
-<ul class = "sounds">
-    <li>
-        Sounds
-        <ul>
-        {{#keys.sounds}}
-            <li>
-                {{.}}
-            </li>
-        {{/keys.sounds}}
-        </ul>
-    </li>
-</ul>
-<ul class = "lights">
-    <li>
-        Cozmo Lights
-        <ul>
-        {{#keys.cozmo-lights}}
-            <li>
-                {{.}}
-            </li>
-        {{/keys.cozmo-lights}}
-        </ul>
-    </li>
-</ul>
-<ul class = "animations">
-    <li>
-        Animations
-        <ul>
-        {{#keys.animations}}
-            <li>
-                {{.}}
-            </li>
-        {{/keys.animations}}
-        </ul>
-    </li>
-</ul>
+<!--
+    Para cada opcion del menu en keys.json, creamos un nuevo div
+    
+    El div contiene una lista de sub-opciones.
+-->
+{{#menuOptions}}
+<div class="{{name}} menu">
+    {{name}}
+    <ul class = "{{name}}">
+    {{#options}}
+        <li code = "{{code}}" description = "{{description}}">
+            <a href="javascript:alert('{{code}}');">{{name}}</a>
+        </li>
+    {{/options}}
+    </ul>
+</div>
+{{/menuOptions}}
+
+<!--
 <ul class = "cubes">
     <li>
         Cubes
@@ -128,3 +74,4 @@
         </ul>
     </li>
 </ul>
+-->
