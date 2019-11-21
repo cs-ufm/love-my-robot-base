@@ -10,7 +10,7 @@ p = r.pubsub(ignore_subscribe_messages=True)
 channel = 'do'
 global_json = None
 robot= cozmo.robot.Robot
-python_file = "test1.py"
+
 
 functions_executed = []
 
@@ -144,7 +144,10 @@ def function_getter_from_JSON(JSON):
     """
     functions_and_params = []
     functions_and_params = JSON.get('lmr')
-    f = open(python_file, "w")
+    request_timestamp = JSON.get('request_timestamp')
+
+    python_file = f"lmr_lex{request_timestamp}.py"
+    f = open(f"transpiled/{python_file}", "w")
     f.write("import cozmo, time\n")
     f.write("from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light\n")
     f.write("from cozmo.util import degrees, distance_mm, radians, speed_mmps\n")
@@ -168,12 +171,9 @@ def function_getter_from_JSON(JSON):
             functions_executed.append(error_func_not_found)
             f.write(f"{error_func_not_found}\n")
             
-
-        
-
         f.write("cozmo.run_program(cozmo_program)\n")
         f.close()
-        os.system(f"python3 {python_file}")
+        os.system(f"python3 transpiled/{python_file}")
 
 
 def asyncSUB():
