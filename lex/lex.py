@@ -62,26 +62,26 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
-def celebration():
+def win(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
 
-def Hiccup():
+def Hiccup(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()"
     
-def tap(robot: cozmo.robot.Robot):
-        # Move the lift to the top, and wait for it to get there
-        robot.set_lift_height(1).wait_for_completed()
+# def tap(robot: cozmo.robot.Robot):
+#         # Move the lift to the top, and wait for it to get there
+#         robot.set_lift_height(1).wait_for_completed()
 
-        # Move the lift down fairly quickly for 0.1 seconds
-	robot.move_lift(-3.5)
-	time.sleep(0.1)
+#         # Move the lift down fairly quickly for 0.1 seconds
+# 	robot.move_lift(-3.5)
+# 	time.sleep(0.1)
 
-        # Move the lift back to the top quickly, and wait for it to get there
-	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
+#         # Move the lift back to the top quickly, and wait for it to get there
+# 	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
 
-def print_Name(robot: cozmo.robot.Robot):
-    name = input('What’s your name ? ')
-    print(“Hello {}”.format(name)    
+# def print_Name(robot: cozmo.robot.Robot):
+#     name = input("What's your name ?")
+#     print(f"Hello {name}")
           
 
 def message_handler(message):
@@ -107,7 +107,7 @@ LMR_to_func_dict = {
      "MOVE": move,
      "MOVEBACK": moveback,
      "TURN": turn,
-     "WIN": celebration,
+     "WIN": win,
      "HICCUP": Hiccup
  }
 
