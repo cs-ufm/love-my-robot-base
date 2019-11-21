@@ -59,11 +59,11 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
-def celebration(action):
-    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{action}'+).wait_for_completed()" 
+def celebration():
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
 
-def Hiccup(action):
-    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{Hiccup}'+).wait_for_completed()"
+def Hiccup():
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()"
     
     
 
