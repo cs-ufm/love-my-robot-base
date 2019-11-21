@@ -255,7 +255,12 @@ async def pop_a_wheelie():
     return f'print("Cozmo is waiting until he sees a cube")\ncube = await robot.world.wait_for_observed_light_cube()\nprint("Cozmo found a cube, and will now attempt to pop a wheelie on it")\naction = robot.pop_a_wheelie(cube, num_retries=2)\nawait action.wait_for_completed()\n'
 
 def roll_a_cube():
-    pass
+    '''
+    Tell Cozmo to roll a cube that is placed in front of him.
+    This example demonstrates Cozmo driving to and rolling a cube.
+    You must place a cube in front of Cozmo so that he can see it.
+    The cube should be centered in front of him.
+    '''
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
