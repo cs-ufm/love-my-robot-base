@@ -1,8 +1,10 @@
 .jumbotron{
-    background-image: url('./img/cozmo.jpg');
+    background-image: url('./img/cm.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    min-height: 500px;
 }
+
 .menu{
     width: 20%;
     height: 20%;
