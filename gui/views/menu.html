@@ -6,9 +6,9 @@
 {{#menuOptions}}
 <div class="{{name}} menu">
     {{name}}
-    <ul class = "{{name}}">
+    <ul class = "{{name}} hide submenu">
     {{#options}}
-        <li code = "{{code}}" description = "{{description}}">
+        <li code = "{{code}}" description = "{{description}}" class = "subli">
             <a href="javascript:alert('{{code}}');">{{name}}</a>
         </li>
     {{/options}}

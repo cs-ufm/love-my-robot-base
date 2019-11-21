@@ -19,4 +19,5 @@ EXPOSE 8080
 
 CMD [ "node", "server.js", "0.0.0.0", "-p", "8080"]
 
-#docker run -it -p 8080:8080 fernando7/node:v0
+# docker pull lindseymaite/cozmo:1.0
+# docker run -it -p 8080:8080 lindseymaite/cozmo:1.0

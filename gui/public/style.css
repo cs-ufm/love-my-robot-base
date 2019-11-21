@@ -1,10 +1,8 @@
 .jumbotron{
-    background-image: url('./img/cm.jpg');
+    background-image: url('./img/cozmo.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    min-height: 500px;
 }
-
 .menu{
     width: 20%;
     height: 20%;
@@ -12,48 +10,37 @@
     padding: 70px 0;
     font-size: large;
 }
+.hide{
+    display: none;
+}
 .move {
     background-color: pink;
-}
-ul.move {
-    display: none;
 }
 .sounds {
     background-color: skyblue;
 }
-ul.sounds {
-    display: none;
-}
 .cozmo-lights {
     background-color: lightgoldenrodyellow;
-}
-ul.cozmo-lights {
-    display: none;
 }
 .animations {
     background-color: lightseagreen;
 }
-ul.animations {
-    display: none;
-}
 .cubes {    
     background-color: lightgreen;
 }
-ul.cubes {
-    display: none;
-}
 
-ul {
+ul.submenu {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
+    margin-left: 200%;
+    width: 70%;
 }
-li a {
+li.subli {
     display: block;
-    padding: 8px 16px;
+    padding: 30px;
     text-decoration: none;
+    text-align: center;
 }
+/*
 @media screen and (max-width: 900px) {
 ul.sidenav {
     width: 100%;
@@ -74,4 +61,4 @@ ul.sidenav li a {
     text-align: center;
     float: none;
 }
-}
+}*/
