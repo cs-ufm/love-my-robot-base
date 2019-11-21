@@ -27,6 +27,20 @@ def Count(number):
     int(number)
     return f"    for i in range({number}):\n        robot.say_text(str(i+1)).wait_for_completed()"
 
+def Yes(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabYes).wait_for_completed()"
+
+# Soung
+def sound(unused_param):
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
+
+def sound80s(unused_param):
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoop)"
+
+def soundStop(unused_param):
+    return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
+
+
 def lift(numbertolift):
     float(numbertolift)
     return f"    robot.move_lift({numbertolift})"
@@ -147,6 +161,7 @@ def message_handler(message):
 LMR_to_func_dict = {
      "SAY" : sayhello,
      "COUNT": Count,
+     "YES": Yes,
      "LIFT": lift,
      "MOVE": move,
      "MOVEBACK": moveback,
@@ -229,16 +244,6 @@ def asyncSUB():
     print(f"asyncSUB: message: {message}")
 
 
-# Soung
-
-def sound():
-    return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
-
-def sound80s():
-    return f"    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoop)"
-
-def soundStop():
-    return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
 
 # Lights
 
