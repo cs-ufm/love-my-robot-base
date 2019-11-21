@@ -57,7 +57,21 @@ def turn(degrees):
     # Turn 90 degrees to the left.
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
-    
+
+def tap(robot: cozmo.robot.Robot):
+        # Move the lift to the top, and wait for it to get there
+        robot.set_lift_height(1).wait_for_completed()
+
+        # Move the lift down fairly quickly for 0.1 seconds
+	robot.move_lift(-3.5)
+	time.sleep(0.1)
+
+        # Move the lift back to the top quickly, and wait for it to get there
+	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
+
+def print_Name(robot: cozmo.robot.Robot):
+    name = input('What’s your name ? ')
+    print(“Hello {}”.format(name)    
     
 
 def message_handler(message):
@@ -169,27 +183,10 @@ def asyncSUB():
 #     # Turn 90 degrees to the left.
 #     # Note: To turn to the right, just use a negative number.
 #     robot.turn_in_place(degrees(90)).wait_for_completed()
-
-def tap(robot: cozmo.robot.Robot):
-        # Move the lift to the top, and wait for it to get there
-        robot.set_lift_height(1).wait_for_completed()
-
-        # Move the lift down fairly quickly for 0.1 seconds
-	robot.move_lift(-3.5)
-	time.sleep(0.1)
-
-<<<<<<< HEAD
-        # Move the lift back to the top quickly, and wait for it to get there
-	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
-
-def print_Name(robot: cozmo.robot.Robot):
-    name = input('What’s your name ? ')
-    print(“Hello {}”.format(name))
  
 #Animations
-=======
 #Animations 5
->>>>>>> 2f31eb013214138efd17c621db94fc2c3be54dd0
+
 def celebration(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
