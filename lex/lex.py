@@ -61,6 +61,9 @@ def turn(degrees):
 
 def celebration(action):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{action}'+).wait_for_completed()" 
+
+def Hiccup(action):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{Hiccup}'+).wait_for_completed()"
     
     
 
@@ -87,8 +90,8 @@ LMR_to_func_dict = {
      "MOVE": move,
      "MOVEBACK": moveback,
      "TURN": turn,
-     "WIN": celebration
-
+     "WIN": celebration,
+     "HICCUP": Hiccup
  }
 
 def function_getter_from_JSON(JSON):
@@ -182,8 +185,8 @@ def asyncSUB():
 # def celebration(robot: cozmo.robot.Robot):
 #     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
-def Hiccup(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
+# def Hiccup(robot: cozmo.robot.Robot):
+#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
 
 def Surprise(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()  
