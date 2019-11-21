@@ -12,20 +12,42 @@ global_json = None
 robot= cozmo.robot.Robot
 python_file = "test1.py"
 # #Cozmo functions
+''' Move functions
+    -lift
+    -moveforward
+    -movebackward
+    -turn
+'''
+
 def sayhello(string_to_say):
-    return f"    robot.say_text({string_to_say}).wait_for_completed()"
+    return f"    robot.say_text('{string_to_say}').wait_for_completed()"
 
 def lift(numbertolift):
+    float(numbertolift)
     return f"    robot.move_lift({numbertolift})"
 
-def move(distance, speed):
+def move(distance_speed):
     # Drive forwards for 150 millimeters at 50 millimeters-per-second.
     #robot.drive_straight(distance_mm(150), speed_mmps(50)).wait_for_completed()
-    return f"    robot.drive_straight(distance_mm({distance}), speed_mmps({speed}).wait_for_completed())"
+    params_list = distance_speed.split(" ")
+    if len(params_list) == 2:
+        param1 = float(params_list[0])
+        param2 = float(params_list[1])
+    else:
+        param1 = 150
+        param2 = 50
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
 
-def moveback(negativedistance, speed):
+def moveback(negativedistance_speed):
     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
-    return f"    robot.drive_straight(distance_mm({negativedistance}), speed_mmps({speed}).wait_for_completed())"
+    params_list = negativedistance_speed.split(" ")
+    if len(params_list) == 2:
+        param1 = float(params_list[0])
+        param2 = float(params_list[1])
+    else:
+        param1 = -150
+        param2 = 50
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
 
 def turn(degrees):
     # Turn 90 degrees to the left.
@@ -127,7 +149,7 @@ def asyncSUB():
 
 
 
-#Animations son 5
+#Animations 5
 def celebration(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
