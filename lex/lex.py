@@ -12,12 +12,14 @@ global_json = None
 robot= cozmo.robot.Robot
 python_file = "test1.py"
 
+functions_executed = []
+
 def isNumber(maybe_number):
     return isinstance(maybe_number, int) or isinstance(maybe_number, float)
 
 # #Cozmo functions
 def sayhello(string_to_say):
-    return f"    robot.say_text({string_to_say}).wait_for_completed()"
+    return f"    robot.say_text('{string_to_say}').wait_for_completed()"
 
 # def move(robot: cozmo.robot.Robot):
 #     # Drive forwards for 150 millimeters at 50 millimeters-per-second.
@@ -104,30 +106,13 @@ def function_getter_from_JSON(JSON):
         
         list_of_func_params = eachFuncParam.split(" ")
         str_func = list_of_func_params[0]
+        str_param = list_of_func_params[1]
+
         function = LMR_to_func_dict.get(str_func)
 
-        if len(list_of_func_params) == 1: # no param
-            string_print = function()
-
-        elif len(list_of_func_params) == 2: # one param
-            str_param = list_of_func_params[1]
-
-            if isNumber(str_param):
-                string_print = function(f"{str_param}")
-            else:
-                string_print = function(f"'{str_param}'")
-
-
-        elif len(list_of_func_params) == 3: # two params
-            str_param1 = list_of_func_params[1]
-            str_param2 = list_of_func_params[2]
-
-            if isNumber(str_param1) and isNumber(str_param2):
-                string_print = function(f"{str_param1},{str_param2}")
-            else:
-                string_print = function(f"'{str_param1}','{str_param2}'")
-
-        f.write(f"{string_print}\n")
+        str_print = function(str_param)
+        functions_executed.append(f"{str_print}")
+        f.write(f"{str_print}\n")
 
     f.write("cozmo.run_program(cozmo_program)\n")
     f.close()
