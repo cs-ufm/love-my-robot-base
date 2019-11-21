@@ -237,18 +237,12 @@ def cubeThreeLights():
 
 def driveOffFunction():
     # drive off the charger
-    robot.drive_off_charger_contacts().wait_for_completed()
-    robot.drive_straight(distance_mm(100), speed_mmps(50)).wait_for_completed()
     # Start moving the lift down
-    robot.move_lift(-3)
     # turn around to look at the charger
-    robot.turn_in_place(degrees(180)).wait_for_completed()
     # Tilt the head to be level
-    robot.set_head_angle(degrees(0)).wait_for_completed()
     # wait half a second to ensure Cozmo has seen the charger
-    time.sleep(0.5)
     # drive backwards away from the charger
-    robot.drive_straight(distance_mm(-60), speed_mmps(50)).wait_for_completed()
+
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
