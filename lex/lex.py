@@ -1,5 +1,5 @@
 import redis, json, threading, time, asyncio, os, cozmo, sys
-from flask import Flask
+from flask import Flask, render_template
 from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light
 from cozmo.util import degrees, distance_mm, radians, speed_mmps
 
@@ -131,6 +131,8 @@ LMR_to_func_dict = {
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
      "EXCITED": Excited,
+     "SNEEZE": Excited,
+     "SCARED": Scared,
      "LIGHTBLUE": BackpackBlue
 }
 
@@ -143,7 +145,7 @@ def function_getter_from_JSON(JSON):
     functions_and_params = []
     functions_and_params = JSON.get('lmr')
     f = open(python_file, "w")
-    f.write("import cozmo\n")
+    f.write("import cozmo, time\n")
     f.write("from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light\n")
     f.write("from cozmo.util import degrees, distance_mm, radians, speed_mmps\n")
     f.write("def cozmo_program(robot: cozmo.robot.Robot):\n")
@@ -209,6 +211,9 @@ def duck(robot: cozmo.robot.Robot):
 def Elephant(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
 
+@app.route("/")
+def home():
+    return render_template("index.html", functions_executed=functions_executed)
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
@@ -218,11 +223,4 @@ if __name__ == "__main__":
     this is were the fun begins.
     """
     asyncSUB()
-    app.run(host="0.0.0.0")
-    
-    
-@app.route('/')
-def hello_world():
-    cozmo.run_program(Elephant)
-
-
+    app.run(host="0.0.0.0",debug=True)
