@@ -231,30 +231,14 @@ def soundStop():
 
 # Lights
 
-def cubeLights():
-    cube1 = robot.world.get_light_cube(LightCube1Id)  # looks like a paperclip
-    cube2 = robot.world.get_light_cube(LightCube2Id)  # looks like a lamp / heart
-    cube3 = robot.world.get_light_cube(LightCube3Id)  # looks like the letters 'ab' over 'T'
+def cubeOneLights():
+    return f'cube1 = robot.world.get_light_cube(LightCube1Id)\n if cube1 is not None:\n    cube1.set_lights(cozmo.lights.red_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")\n time.sleep(10)\n'
 
-    if cube1 is not None:
-        cube1.set_lights(cozmo.lights.red_light)
-    else:
-        cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")
+def cubeOneLights():
+    return f'cube1 = robot.world.get_light_cube(LightCube1Id)\n if cube1 is not None:\n    cube1.set_lights(cozmo.lights.red_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")\n time.sleep(10)\n'
 
-    if cube2 is not None:
-        cube2.set_lights(cozmo.lights.green_light)
-    else:
-        cozmo.logger.warning("Cozmo is not connected to a LightCube2Id cube - check the battery.")
-
-    if cube3 is not None:
-        cube3.set_lights(cozmo.lights.blue_light)
-    else:
-        cozmo.logger.warning("Cozmo is not connected to a LightCube3Id cube - check the battery.")
-
-    # Keep the lights on for 10 seconds until the program exits
-    time.sleep(10)
-
-
+def cubeOneLights():
+    return f'cube1 = robot.world.get_light_cube(LightCube1Id)\n if cube1 is not None:\n    cube1.set_lights(cozmo.lights.red_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")\n time.sleep(10)\n'
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
