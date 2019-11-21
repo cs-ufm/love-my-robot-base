@@ -9,7 +9,8 @@
             },
             {
                 "name": "backward",
-                "code": "MOVE"
+                "code": "MOVE",
+                "description" : "Make Cozmo go backward"
             },
             {
                 "name": "square",
@@ -76,7 +77,7 @@
         "options": [
             {
                 "name": "happy",
-                "code": "ANMIATION"
+                "code": "ANIMATION"
             },
             {
                 "name": "sad",

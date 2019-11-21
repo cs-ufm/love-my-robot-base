@@ -6,10 +6,11 @@
 {{#menuOptions}}
 <div class="{{name}} menu">
     {{name}}
-    <ul class = "{{name}} hide submenu">
+    <ul style="margin-top: -{{gap}}px;" class = "{{name}} hide submenu">
     {{#options}}
         <li code = "{{code}}" description = "{{description}}" class = "subli">
-            <a href="javascript:alert('{{code}}');">{{name}}</a>
+            <!-- <a href="javascript:alert('{{code}}');">{{name}}</a> -->
+            {{> modal}}
         </li>
     {{/options}}
     </ul>

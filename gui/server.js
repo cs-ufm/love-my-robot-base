@@ -10,13 +10,13 @@ app.use(express.static('public'))
 app.get('/', function(req, res){
     const template = fs.readFileSync('views/index.html', 'utf8');
 
-    // get info fron todo.json
-    const todo_string = fs.readFileSync('./todo.json', 'utf8');
-    const actions = JSON.parse(todo_string);
-
     // get keys for todo
     const keys_string = fs.readFileSync('./keys.json', 'utf8');
     const keys = JSON.parse(keys_string);
+
+    for (let key in keys) {
+        keys[key].gap = ((parseInt(key) + 1) * 140) - 20
+    }
 
     //include menu.html
     const menu = fs.readFileSync('views/menu.html', 'utf8');
@@ -30,7 +30,10 @@ app.get('/', function(req, res){
     //include jumbotron.html
     const jumbo = fs.readFileSync('views/jumbotron.html', 'utf8');
 
-    const renderIndex = Mustache.render(template, {menuOptions: keys}, {menu, nav, jumbo, con});
+    //include modal.html
+    const modal = fs.readFileSync('views/modal.html', 'utf8');
+
+    const renderIndex = Mustache.render(template, {menuOptions: keys}, {menu, nav, jumbo, con, modal});
 
     res.status(200).send(renderIndex)
 })
