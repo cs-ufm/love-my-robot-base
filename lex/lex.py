@@ -81,11 +81,19 @@ def Sneeze(unused_param):
 def Scared(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScared).wait_for_completed()"
 
-def BackpackBlue(unused_param):   
-    return f"    robot.set_all_backpack_lights(cozmo.lights.blue_light)"
-
-
-
+def PartyMode(unused_param):
+    var_string = "    for i in range(10):\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.red_light)\n"    
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.green_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.blue_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_center_backpack_lights(cozmo.lights.white_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.off_light)"
+    var_string = "        time.sleep(0.1)"
+    return var_string
 
 
     
@@ -133,7 +141,7 @@ LMR_to_func_dict = {
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
      "EXCITED": Excited,
-     "LIGHTBLUE": BackpackBlue
+     "PARTY": PartyMode
 }
 
 def function_getter_from_JSON(JSON):
