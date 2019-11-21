@@ -2,17 +2,13 @@ const express = require('express');
 const redis = require('redis');
 const pug = require('pug');
 var bodyParser = require('body-parser');
-const app = express()
+const app = express();
 const port = 8080
 const channel = 'do'
 const publisher = redis.createClient({
     host: 'redis',
     port: 6379
 });
-const app = express();
-const port = 8080;
-
-app.get('/', (req, res) => res.send('Hello From Express'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
@@ -22,7 +18,7 @@ var j={
 
 var _code={
     "request_timestamp":"2019-08-11T12:99",
-    "lmr":["SAY NICE","LIFT -0.5", "MOVE 150 50"]
+    "lmr":["SAY NICE"]
 }
 
 function JSONpub(json) {
@@ -64,10 +60,19 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-let names = ['Jose', 'Luis']
+let names = ['SAY HI', 'SAY HELLO']
 
 app.get('/', (req, res) => res.sendFile('index.html'))
 app.get('/pug', (req, res) => res.render('pugIndex', {names}))
+
+app.get('/send', (req, res) => {
+    var js ={
+        "request_timestamp":"2019-08-11T12:99",
+        "lmr":names
+    } 
+    JSONpub(js)
+})
+
 app.post('/save-user', function(req, res) {
     console.log(req.body);
     names.push(req.body.name);
@@ -88,3 +93,4 @@ app.post('/delete-user', function(req, res) {
     }
     res.json({message:"User not found"})
 })
+

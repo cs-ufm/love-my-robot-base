@@ -1,4 +1,14 @@
 $(document).ready(function() {
+    $('.run').click(function(){
+        $.get('/send', function(data, status) {
+            console.log(`${data.message} and status is ${status}`)
+            alert(data.message)
+            setTimeout(function() {
+                location.reload();
+            }, 0);
+        })
+    })
+
     $('.li1').click(function() {
         console.log("hola")
         let name = $(this).text()
@@ -9,7 +19,7 @@ $(document).ready(function() {
                 alert(data.message)
                 setTimeout(function() {
                     location.reload();
-                }, 2000);
+                }, 0);
             })
         }
     })
@@ -22,7 +32,7 @@ $(document).ready(function() {
                 alert(data.message)
                 setTimeout(function() {
                     location.reload();
-                }, 2000);
+                }, 0);
             })
         }
     })
