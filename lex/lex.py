@@ -86,7 +86,8 @@ LMR_to_func_dict = {
      "LIFT": lift,
      "MOVE": move,
      "MOVEBACK": moveback,
-     "TURN": turn
+     "TURN": turn,
+     "WIN": celebration
 
  }
 
