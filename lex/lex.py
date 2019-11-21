@@ -13,19 +13,19 @@ global_json = None
 robot= cozmo.robot.Robot
 python_file = "test1.py"
 
+functions_executed = []
+
 def isNumber(maybe_number):
     return isinstance(maybe_number, int) or isinstance(maybe_number, float)
 
 # #Cozmo functions
-''' Move functions
-    -lift
-    -moveforward
-    -movebackward
-    -turn
-'''
-
+#Actioms
 def sayhello(string_to_say):
     return f"    robot.say_text('{string_to_say}').wait_for_completed()"
+
+def Count(number):
+    int(number)
+    return f"    for i in range({number}):\n        robot.say_text(str(i+1)).wait_for_completed()"
 
 def lift(numbertolift):
     float(numbertolift)
@@ -60,21 +60,50 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
-#def tap(robot: cozmo.robot.Robot):
-        # Move the lift to the top, and wait for it to get there
- #       robot.set_lift_height(1).wait_for_completed()
-        # Move the lift down fairly quickly for 0.1 seconds
-#	robot.move_lift(-3.5)
-#	time.sleep(0.1)
-        # Move the lift back to the top quickly, and wait for it to get there
-#	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
 
-def print_Name(robot: cozmo.robot.Robot):
-    name = input('What’s your name ? ')
-    print(“Hello {}”.format(name)    
+
+#Animations
+def win(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
+
+def Hiccup(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()"
+
+def Surprise(ununsed_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()"
+
+def Excited(ununsed_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabExcited).wait_for_completed()"
+
+def Sneeze(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSneeze).wait_for_completed()"
+
+def Scared(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScared).wait_for_completed()"
+
+def BackpackBlue(unused_param):   
+    return f"    robot.set_all_backpack_lights(cozmo.lights.blue_light)"
+
+
+
+
+
+    
+# def tap(robot: cozmo.robot.Robot):
+#         # Move the lift to the top, and wait for it to get there
+#         robot.set_lift_height(1).wait_for_completed()
+
+#         # Move the lift down fairly quickly for 0.1 seconds
+# 	robot.move_lift(-3.5)
+# 	time.sleep(0.1)
+
+#         # Move the lift back to the top quickly, and wait for it to get there
+# 	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
+
+# def print_Name(robot: cozmo.robot.Robot):
+#     name = input("What's your name ?")
+#     print(f"Hello {name}")
           
-def celebration(action):
-    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{action}'+).wait_for_completed()"     
 
 def message_handler(message):
     """Converts message string to JSON.
@@ -95,13 +124,17 @@ def message_handler(message):
 
 LMR_to_func_dict = {
      "SAY" : sayhello,
+     "COUNT": Count,
      "LIFT": lift,
      "MOVE": move,
      "MOVEBACK": moveback,
      "TURN": turn,
-     "WIN": celebration
-
- }
+     "WIN": win,
+     "HICCUP": Hiccup,
+     "SURPRISE": Surprise,
+     "EXCITED": Excited,
+     "LIGHTBLUE": BackpackBlue
+}
 
 def function_getter_from_JSON(JSON):
     """Receives a JSON and extractrs the LMR
@@ -121,34 +154,26 @@ def function_getter_from_JSON(JSON):
         
         list_of_func_params = eachFuncParam.split(" ")
         str_func = list_of_func_params[0]
-        function = LMR_to_func_dict.get(str_func)
+        list_param = list_of_func_params[1:]
+        
+        str_param = " ".join(list_param)
 
-        if len(list_of_func_params) == 1: # no param
-            string_print = function()
+        try:
+            function = LMR_to_func_dict.get(str_func)
+            str_print = function(str_param)
+            functions_executed.append(f"{str_print}")
+            f.write(f"{str_print}\n")
+        except:
+            error_func_not_found = f"    print('ERROR: func {str_func} not found.')"
+            functions_executed.append(error_func_not_found)
+            f.write(f"{error_func_not_found}\n")
+            
 
-        elif len(list_of_func_params) == 2: # one param
-            str_param = list_of_func_params[1]
+        
 
-            if isNumber(str_param):
-                string_print = function(f"{str_param}")
-            else:
-                string_print = function(f"'{str_param}'")
-
-
-        elif len(list_of_func_params) == 3: # two params
-            str_param1 = list_of_func_params[1]
-            str_param2 = list_of_func_params[2]
-
-            if isNumber(str_param1) and isNumber(str_param2):
-                string_print = function(f"{str_param1},{str_param2}")
-            else:
-                string_print = function(f"'{str_param1}','{str_param2}'")
-
-        f.write(f"{string_print}\n")
-
-    f.write("cozmo.run_program(cozmo_program)\n")
-    f.close()
-    os.system(f"python3 {python_file}")
+        f.write("cozmo.run_program(cozmo_program)\n")
+        f.close()
+        os.system(f"python3 {python_file}")
 
 
 def asyncSUB():
@@ -177,39 +202,7 @@ def asyncSUB():
     print(f"asyncSUB: message: {message}")
 
 
-#MOVE
-# def moveback(robot: cozmo.robot.Robot):
-#     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
-#     robot.drive_straight(distance_mm(-150), speed_mmps(50)).wait_for_completed()
 
-#TURN
-# def turn(robot: cozmo.robot.Robot):
-#     # Turn 90 degrees to the left.
-#     # Note: To turn to the right, just use a negative number.
-#     robot.turn_in_place(degrees(90)).wait_for_completed()
- 
-#Animations
-#Animations 5
-
-def celebration(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
-# def celebration(robot: cozmo.robot.Robot):
-#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
-
-def Hiccup(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
-
-def Surprise(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()  
-
-def Excited(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabExcited).wait_for_completed()  
-
-def Sneeze(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSneeze).wait_for_completed()  
-
-def Scared(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScaredCozmo).wait_for_completed()  
 
 #Animals
 def duck(robot: cozmo.robot.Robot):
