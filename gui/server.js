@@ -1,14 +1,14 @@
 const express = require('express');
 const redis = require('redis');
+const pug = require('pug');
+var bodyParser = require('body-parser');
+const app = express();
+const port = 8080
 const channel = 'do'
 const publisher = redis.createClient({
     host: 'redis',
     port: 6379
 });
-const app = express();
-const port = 8080;
-
-app.get('/', (req, res) => res.send('Hello From Express'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
@@ -53,4 +53,44 @@ function stateChange(newState) {
 }
 
 stateChange(-1)
+
+app.set('view engine', 'pug')
+app.use(express.static('public'))
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+let names = ['SAY HI', 'SAY HELLO']
+
+app.get('/', (req, res) => res.sendFile('index.html'))
+app.get('/pug', (req, res) => res.render('pugIndex', {names}))
+
+app.get('/send', (req, res) => {
+    var js ={
+        "request_timestamp":"2019-08-11T12:99",
+        "lmr":names
+    } 
+    JSONpub(js)
+})
+
+app.post('/save-user', function(req, res) {
+    console.log(req.body);
+    names.push(req.body.name);
+    res.json({message:"New name added"})
+})
+app.post('/delete-user', function(req, res) {
+    console.log(req.body);
+    let found = 0
+    for( var i = 0; i < names.length; i++){ 
+        if ( names[i] === req.body.name) {
+          names.splice(i, 1); 
+          found = 1
+        }
+     }
+    // names.delete(req.body.name);
+    if(found == 1){
+        res.json({message:"User deleted"})
+    }
+    res.json({message:"User not found"})
+})
 
