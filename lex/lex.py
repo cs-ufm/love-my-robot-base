@@ -2,6 +2,7 @@ import redis, json, threading, time, asyncio, os, cozmo, sys
 from flask import Flask
 from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light
 from cozmo.util import degrees, distance_mm, radians, speed_mmps
+from cozmo.objects import LightCube1Id, LightCube2Id, LightCube3Id
 
 app = Flask(__name__)
 r = redis.StrictRedis(host="localhost", port=6379, db=0)
@@ -227,6 +228,10 @@ def sound80s():
 
 def soundStop():
     return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
+
+# Lights
+
+
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
