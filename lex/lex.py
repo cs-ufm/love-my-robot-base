@@ -12,18 +12,21 @@ global_json = None
 robot= cozmo.robot.Robot
 python_file = "test1.py"
 
+functions_executed = []
+
 def isNumber(maybe_number):
     return isinstance(maybe_number, int) or isinstance(maybe_number, float)
 
 # #Cozmo functions
-''' Move functions
+""" Move functions
     -lift
     -moveforward
     -movebackward
     -turn
-'''
+"""
 
 def sayhello(string_to_say):
+    print(f"string_to_say: {string_to_say}")
     return f"    robot.say_text('{string_to_say}').wait_for_completed()"
 
 def lift(numbertolift):
@@ -59,26 +62,26 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
-def celebration():
+def win(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
 
-def Hiccup():
+def Hiccup(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()"
     
-def tap(robot: cozmo.robot.Robot):
-        # Move the lift to the top, and wait for it to get there
-        robot.set_lift_height(1).wait_for_completed()
+# def tap(robot: cozmo.robot.Robot):
+#         # Move the lift to the top, and wait for it to get there
+#         robot.set_lift_height(1).wait_for_completed()
 
-        # Move the lift down fairly quickly for 0.1 seconds
-	robot.move_lift(-3.5)
-	time.sleep(0.1)
+#         # Move the lift down fairly quickly for 0.1 seconds
+# 	robot.move_lift(-3.5)
+# 	time.sleep(0.1)
 
-        # Move the lift back to the top quickly, and wait for it to get there
-	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
+#         # Move the lift back to the top quickly, and wait for it to get there
+# 	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
 
-def print_Name(robot: cozmo.robot.Robot):
-    name = input('What’s your name ? ')
-    print(“Hello {}”.format(name)    
+# def print_Name(robot: cozmo.robot.Robot):
+#     name = input("What's your name ?")
+#     print(f"Hello {name}")
           
 
 def message_handler(message):
@@ -104,7 +107,7 @@ LMR_to_func_dict = {
      "MOVE": move,
      "MOVEBACK": moveback,
      "TURN": turn,
-     "WIN": celebration,
+     "WIN": win,
      "HICCUP": Hiccup
  }
 
@@ -126,30 +129,15 @@ def function_getter_from_JSON(JSON):
         
         list_of_func_params = eachFuncParam.split(" ")
         str_func = list_of_func_params[0]
+        list_param = list_of_func_params[1:]
+        
+        str_param = " ".join(list_param)
+
         function = LMR_to_func_dict.get(str_func)
 
-        if len(list_of_func_params) == 1: # no param
-            string_print = function()
-
-        elif len(list_of_func_params) == 2: # one param
-            str_param = list_of_func_params[1]
-
-            if isNumber(str_param):
-                string_print = function(f"{str_param}")
-            else:
-                string_print = function(f"'{str_param}'")
-
-
-        elif len(list_of_func_params) == 3: # two params
-            str_param1 = list_of_func_params[1]
-            str_param2 = list_of_func_params[2]
-
-            if isNumber(str_param1) and isNumber(str_param2):
-                string_print = function(f"{str_param1},{str_param2}")
-            else:
-                string_print = function(f"'{str_param1}','{str_param2}'")
-
-        f.write(f"{string_print}\n")
+        str_print = function(str_param)
+        functions_executed.append(f"{str_print}")
+        f.write(f"{str_print}\n")
 
     f.write("cozmo.run_program(cozmo_program)\n")
     f.close()

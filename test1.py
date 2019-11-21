@@ -2,5 +2,5 @@ import cozmo
 from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light
 from cozmo.util import degrees, distance_mm, radians, speed_mmps
 def cozmo_program(robot: cozmo.robot.Robot):
-    robot.say_text('TEQUIEROANDREA').wait_for_completed()
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()
 cozmo.run_program(cozmo_program)
