@@ -59,16 +59,14 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
-def tap(robot: cozmo.robot.Robot):
+#def tap(robot: cozmo.robot.Robot):
         # Move the lift to the top, and wait for it to get there
-        robot.set_lift_height(1).wait_for_completed()
-
+ #       robot.set_lift_height(1).wait_for_completed()
         # Move the lift down fairly quickly for 0.1 seconds
-	robot.move_lift(-3.5)
-	time.sleep(0.1)
-
+#	robot.move_lift(-3.5)
+#	time.sleep(0.1)
         # Move the lift back to the top quickly, and wait for it to get there
-	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
+#	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
 
 def print_Name(robot: cozmo.robot.Robot):
     name = input('What’s your name ? ')
@@ -219,6 +217,16 @@ def duck(robot: cozmo.robot.Robot):
 def Elephant(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
 
+# Soung
+
+def sound():
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
+
+def sound80s():
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoop)"
+
+def soundStop():
+    return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
