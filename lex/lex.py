@@ -26,6 +26,11 @@ def move(distance, speed):
 def moveback(negativedistance, speed):
     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
     return f"    robot.drive_straight(distance_mm({negativedistance}), speed_mmps({speed}).wait_for_completed())"
+
+def turn(degrees):
+    # Turn 90 degrees to the left.
+    # Note: To turn to the right, just use a negative number.
+    return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
     
     
 
@@ -114,14 +119,15 @@ def asyncSUB():
 #     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
 #     robot.drive_straight(distance_mm(-150), speed_mmps(50)).wait_for_completed()
 
-def turn(robot: cozmo.robot.Robot):
-    # Turn 90 degrees to the left.
-    # Note: To turn to the right, just use a negative number.
-    robot.turn_in_place(degrees(90)).wait_for_completed()
+#TURN
+# def turn(robot: cozmo.robot.Robot):
+#     # Turn 90 degrees to the left.
+#     # Note: To turn to the right, just use a negative number.
+#     robot.turn_in_place(degrees(90)).wait_for_completed()
 
 
 
-#Animations
+#Animations son 5
 def celebration(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
@@ -131,6 +137,14 @@ def Hiccup(robot: cozmo.robot.Robot):
 def Surprise(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()  
 
+def Excited(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabExcited).wait_for_completed()  
+
+def Sneeze(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSneeze).wait_for_completed()  
+
+def Scared(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScaredCozmo).wait_for_completed()  
 
 #Animals
 def duck(robot: cozmo.robot.Robot):
