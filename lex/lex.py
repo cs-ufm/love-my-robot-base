@@ -16,20 +16,47 @@ def isNumber(maybe_number):
     return isinstance(maybe_number, int) or isinstance(maybe_number, float)
 
 # #Cozmo functions
+''' Move functions
+    -lift
+    -moveforward
+    -movebackward
+    -turn
+'''
+
 def sayhello(string_to_say):
-    return f"    robot.say_text({string_to_say}).wait_for_completed()"
+    return f"    robot.say_text('{string_to_say}').wait_for_completed()"
 
 def lift(numbertolift):
+    float(numbertolift)
     return f"    robot.move_lift({numbertolift})"
 
-def move(distance, speed):
+def move(distance_speed):
     # Drive forwards for 150 millimeters at 50 millimeters-per-second.
     #robot.drive_straight(distance_mm(150), speed_mmps(50)).wait_for_completed()
-    return f"    robot.drive_straight(distance_mm({distance}), speed_mmps({speed}).wait_for_completed())"
+    params_list = distance_speed.split(" ")
+    if len(params_list) == 2:
+        param1 = float(params_list[0])
+        param2 = float(params_list[1])
+    else:
+        param1 = 150
+        param2 = 50
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
 
-def moveback(negativedistance, speed):
+def moveback(negativedistance_speed):
     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
-    return f"    robot.drive_straight(distance_mm({negativedistance}), speed_mmps({speed}).wait_for_completed())"
+    params_list = negativedistance_speed.split(" ")
+    if len(params_list) == 2:
+        param1 = float(params_list[0])
+        param2 = float(params_list[1])
+    else:
+        param1 = -150
+        param2 = 50
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
+
+def turn(degrees):
+    # Turn 90 degrees to the left.
+    # Note: To turn to the right, just use a negative number.
+    return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
     
     
 
@@ -137,10 +164,11 @@ def asyncSUB():
 #     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
 #     robot.drive_straight(distance_mm(-150), speed_mmps(50)).wait_for_completed()
 
-def turn(robot: cozmo.robot.Robot):
-    # Turn 90 degrees to the left.
-    # Note: To turn to the right, just use a negative number.
-    robot.turn_in_place(degrees(90)).wait_for_completed()
+#TURN
+# def turn(robot: cozmo.robot.Robot):
+#     # Turn 90 degrees to the left.
+#     # Note: To turn to the right, just use a negative number.
+#     robot.turn_in_place(degrees(90)).wait_for_completed()
 
 def tap(robot: cozmo.robot.Robot):
         # Move the lift to the top, and wait for it to get there
@@ -150,6 +178,7 @@ def tap(robot: cozmo.robot.Robot):
 	robot.move_lift(-3.5)
 	time.sleep(0.1)
 
+<<<<<<< HEAD
         # Move the lift back to the top quickly, and wait for it to get there
 	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
 
@@ -158,6 +187,9 @@ def print_Name(robot: cozmo.robot.Robot):
     print(“Hello {}”.format(name))
  
 #Animations
+=======
+#Animations 5
+>>>>>>> 2f31eb013214138efd17c621db94fc2c3be54dd0
 def celebration(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
@@ -167,6 +199,14 @@ def Hiccup(robot: cozmo.robot.Robot):
 def Surprise(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()  
 
+def Excited(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabExcited).wait_for_completed()  
+
+def Sneeze(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSneeze).wait_for_completed()  
+
+def Scared(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScaredCozmo).wait_for_completed()  
 
 #Animals
 def duck(robot: cozmo.robot.Robot):
