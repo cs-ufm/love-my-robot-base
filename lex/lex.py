@@ -156,11 +156,18 @@ def function_getter_from_JSON(JSON):
         
         str_param = " ".join(list_param)
 
-        function = LMR_to_func_dict.get(str_func)
+        try:
+            function = LMR_to_func_dict.get(str_func)
+            str_print = function(str_param)
+            functions_executed.append(f"{str_print}")
+            f.write(f"{str_print}\n")
+        except:
+            error_func_not_found = f"    print('ERROR: func {str_func} not found.')"
+            functions_executed.append(error_func_not_found)
+            f.write(f"{error_func_not_found}\n")
+            
 
-        str_print = function(str_param)
-        functions_executed.append(f"{str_print}")
-        f.write(f"{str_print}\n")
+        
 
         f.write("cozmo.run_program(cozmo_program)\n")
         f.close()
