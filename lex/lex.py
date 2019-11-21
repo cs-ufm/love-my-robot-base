@@ -271,6 +271,7 @@ def pickupCube():
     pick up the finded. 
     '''
     
+    return f'lookaround = robot.start_behavior(cozmo.behavior.BehaviorTypes.LookAroundInPlace)\ntarg = robot.world.wait_until_observe_num_objects(num=1, object_type=cozmo.objects.LightCube, timeout=60)\nlookaround.stop()\nrobot.pickup_object(targ, num_retries=5).wait_for_completed()\n'
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
