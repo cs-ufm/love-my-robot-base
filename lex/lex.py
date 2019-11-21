@@ -252,13 +252,7 @@ async def pop_a_wheelie
     This example demonstrates Cozmo driving to a cube and pushing himself onto
     his back by pushing his lift against that cube.
     '''
-    print("Cozmo is waiting until he sees a cube")
-    cube = await robot.world.wait_for_observed_light_cube()
-
-    print("Cozmo found a cube, and will now attempt to pop a wheelie on it")
-
-    action = robot.pop_a_wheelie(cube, num_retries=2)
-    await action.wait_for_completed()
+    return f'print("Cozmo is waiting until he sees a cube")\ncube = await robot.world.wait_for_observed_light_cube()\nprint("Cozmo found a cube, and will now attempt to pop a wheelie on it")\naction = robot.pop_a_wheelie(cube, num_retries=2)\nawait action.wait_for_completed()\n'
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
