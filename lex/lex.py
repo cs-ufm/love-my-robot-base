@@ -141,10 +141,10 @@ LMR_to_func_dict = {
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
      "EXCITED": Excited,
-     "PARTY": PartyMode
+     "PARTY": PartyMode,
      "SNEEZE": Excited,
      "SCARED": Scared,
-     "LIGHTBLUE": BackpackBlue
+     "LIGHTBLUE": Lights
 }
 
 def function_getter_from_JSON(JSON):
