@@ -106,6 +106,9 @@ def duck(unused_param):
 def Elephant(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()"
 
+def Sheep(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSheep).wait_for_completed()"
+
 
     
 # def tap(robot: cozmo.robot.Robot):
