@@ -5,7 +5,7 @@ $(document).ready(function() {
             alert(data.message)
             setTimeout(function() {
                 location.reload();
-            }, 100);
+            }, 0);
         })
     })
 
@@ -19,7 +19,7 @@ $(document).ready(function() {
                 alert(data.message)
                 setTimeout(function() {
                     location.reload();
-                }, 2000);
+                }, 0);
             })
         }
     })
@@ -32,7 +32,7 @@ $(document).ready(function() {
                 alert(data.message)
                 setTimeout(function() {
                     location.reload();
-                }, 2000);
+                }, 0);
             })
         }
     })
