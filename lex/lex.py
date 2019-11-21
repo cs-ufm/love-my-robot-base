@@ -99,6 +99,14 @@ def Lights(param):
     param = param.lower()
     return f"    robot.set_all_backpack_lights(cozmo.lights.+'{param}'+_light)\n        time.sleep(1000)"
 
+#EXTRAS ANIMALS
+def duck(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()"
+
+def Elephant(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()"
+
+
     
 # def tap(robot: cozmo.robot.Robot):
 #         # Move the lift to the top, and wait for it to get there
@@ -144,8 +152,12 @@ LMR_to_func_dict = {
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
      "EXCITED": Excited,
+     "SNEEZE": Sneeze,
+     "SCARED": Scared,
      "PARTY": PartyMode,
-     "LIGHT": Light
+     "LIGHT": Lights,
+     "DUCK": duck,
+     "ELEPHANT": Elephant
 }
 
 def function_getter_from_JSON(JSON):
@@ -213,15 +225,6 @@ def asyncSUB():
     message = p.get_message()
     print(f"asyncSUB: message: {message}")
 
-
-
-
-#Animals
-def duck(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()    
-
-def Elephant(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
 
 # Soung
 
