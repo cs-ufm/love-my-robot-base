@@ -79,6 +79,11 @@ def Sneeze(unused_param):
 def Scared(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScared).wait_for_completed()"
 
+def BackpackBlue(unused_param):   
+    return f"    robot.set_all_backpack_lights(cozmo.lights.blue_light)"
+
+
+
 
 
     
@@ -125,8 +130,9 @@ LMR_to_func_dict = {
      "WIN": win,
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
-     "EXCITED": Excited
- }
+     "EXCITED": Excited,
+     "LIGHTBLUE": BackpackBlue
+}
 
 def function_getter_from_JSON(JSON):
     """Receives a JSON and extractrs the LMR
