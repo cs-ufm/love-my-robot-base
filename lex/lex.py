@@ -2,6 +2,7 @@ import redis, json, threading, time, asyncio, os, cozmo, sys
 from flask import Flask, render_template
 from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light
 from cozmo.util import degrees, distance_mm, radians, speed_mmps
+from cozmo.objects import LightCube1Id, LightCube2Id, LightCube3Id
 
 app = Flask(__name__)
 r = redis.StrictRedis(host="localhost", port=6379, db=0)
@@ -60,6 +61,7 @@ def turn(degrees):
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
 
+
 #Animations
 def win(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
@@ -79,11 +81,19 @@ def Sneeze(unused_param):
 def Scared(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScared).wait_for_completed()"
 
-def BackpackBlue(unused_param):   
-    return f"    robot.set_all_backpack_lights(cozmo.lights.blue_light)"
-
-
-
+def PartyMode(unused_param):
+    var_string = "    for i in range(10):\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.red_light)\n"    
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.green_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.blue_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_center_backpack_lights(cozmo.lights.white_light)\n"
+    var_string = "        time.sleep(0.1)\n"
+    var_string = "        robot.set_all_backpack_lights(cozmo.lights.off_light)"
+    var_string = "        time.sleep(0.1)"
+    return var_string
 
 
     
@@ -131,6 +141,7 @@ LMR_to_func_dict = {
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
      "EXCITED": Excited,
+     "PARTY": PartyMode
      "SNEEZE": Excited,
      "SCARED": Scared,
      "LIGHTBLUE": BackpackBlue
@@ -211,9 +222,33 @@ def duck(robot: cozmo.robot.Robot):
 def Elephant(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
 
+
+# Soung
+
+def sound():
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
+
+def sound80s():
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoop)"
+
+def soundStop():
+    return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
+
+# Lights
+
+def cubeOneLights():
+    return f'cube1 = robot.world.get_light_cube(LightCube1Id)\n if cube1 is not None:\n    cube1.set_lights(cozmo.lights.red_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")\n time.sleep(10)\n'
+
+def cubeTwoLights():
+    return f'cube2 = robot.world.get_light_cube(LightCube2Id)\n if cube2 is not None:\n    cube2.set_lights(cozmo.lights.green_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube2Id cube - check the battery.")\n time.sleep(10)\n'
+
+def cubeThreeLights():
+    return f'cube3 = robot.world.get_light_cube(LightCube3Id)\n if cube3 is not None:\n    cube3.set_lights(cozmo.lights.blue_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube3Id cube - check the battery.")\n time.sleep(10)\n'
+
 @app.route("/")
 def home():
     return render_template("index.html", functions_executed=functions_executed)
+
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
