@@ -1,5 +1,5 @@
 import redis, json, threading, time, asyncio, os, cozmo, sys
-from flask import Flask
+from flask import Flask, render_template
 from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light
 from cozmo.util import degrees, distance_mm, radians, speed_mmps
 from cozmo.objects import LightCube1Id, LightCube2Id, LightCube3Id
@@ -11,7 +11,7 @@ p = r.pubsub(ignore_subscribe_messages=True)
 channel = 'do'
 global_json = None
 robot= cozmo.robot.Robot
-python_file = "test1.py"
+
 
 functions_executed = []
 
@@ -246,8 +246,11 @@ def function_getter_from_JSON(JSON):
     """
     functions_and_params = []
     functions_and_params = JSON.get('lmr')
-    f = open(python_file, "w")
-    f.write("import cozmo\n")
+    request_timestamp = JSON.get('request_timestamp')
+
+    python_file = f"lmr_lex{request_timestamp}.py"
+    f = open(f"transpiled/{python_file}", "w")
+    f.write("import cozmo, time\n")
     f.write("from cozmo.lights import blue_light, Color, green_light, Light, red_light, white_light, off_light\n")
     f.write("from cozmo.util import degrees, distance_mm, radians, speed_mmps\n")
     f.write("def cozmo_program(robot: cozmo.robot.Robot):\n")
@@ -270,12 +273,9 @@ def function_getter_from_JSON(JSON):
             functions_executed.append(error_func_not_found)
             f.write(f"{error_func_not_found}\n")
             
-
-        
-
         f.write("cozmo.run_program(cozmo_program)\n")
         f.close()
-        os.system(f"python3 {python_file}")
+        os.system(f"python3 transpiled/{python_file}")
 
 
 def asyncSUB():
@@ -305,6 +305,43 @@ def asyncSUB():
 
 
 
+
+#Animals
+def duck(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabDuck).wait_for_completed()    
+
+def Elephant(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
+
+
+# Soung
+
+def sound():
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
+
+def sound80s():
+    return f"    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoop)"
+
+def soundStop():
+    return f"    time.sleep(2.0)\n    robot.play_audio(cozmo.audio.AudioEvents.MusicStyle80S1159BpmLoopStop)"
+
+# Lights
+
+def cubeOneLights():
+    return f'cube1 = robot.world.get_light_cube(LightCube1Id)\n if cube1 is not None:\n    cube1.set_lights(cozmo.lights.red_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")\n time.sleep(10)\n'
+
+def cubeTwoLights():
+    return f'cube2 = robot.world.get_light_cube(LightCube2Id)\n if cube2 is not None:\n    cube2.set_lights(cozmo.lights.green_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube2Id cube - check the battery.")\n time.sleep(10)\n'
+
+def cubeThreeLights():
+    return f'cube3 = robot.world.get_light_cube(LightCube3Id)\n if cube3 is not None:\n    cube3.set_lights(cozmo.lights.blue_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube3Id cube - check the battery.")\n time.sleep(10)\n'
+
+@app.route("/")
+def home():
+    return render_template("index.html", functions_executed=functions_executed)
+
+
+
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
 
@@ -313,11 +350,4 @@ if __name__ == "__main__":
     this is were the fun begins.
     """
     asyncSUB()
-    app.run(host="0.0.0.0")
-    
-    
-@app.route('/')
-def hello_world():
-    cozmo.run_program(Elephant)
-
-
+    app.run(host="0.0.0.0",debug=True)
