@@ -59,6 +59,8 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
+
+#Animations
 def win(unused_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
 
@@ -70,6 +72,13 @@ def Surprise(ununsed_param):
 
 def Excited(ununsed_param):
     return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabExcited).wait_for_completed()"
+
+def Sneeze(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSneeze).wait_for_completed()"
+
+def Scared(unused_param):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScared).wait_for_completed()"
+
 
 
     
@@ -147,9 +156,9 @@ def function_getter_from_JSON(JSON):
         functions_executed.append(f"{str_print}")
         f.write(f"{str_print}\n")
 
-    f.write("cozmo.run_program(cozmo_program)\n")
-    f.close()
-    os.system(f"python3 {python_file}")
+        f.write("cozmo.run_program(cozmo_program)\n")
+        f.close()
+        os.system(f"python3 {python_file}")
 
 
 def asyncSUB():
@@ -177,13 +186,8 @@ def asyncSUB():
     message = p.get_message()
     print(f"asyncSUB: message: {message}")
 
-#Animations 5  
 
-def Sneeze(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSneeze).wait_for_completed()  
 
-def Scared(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabScaredCozmo).wait_for_completed()  
 
 #Animals
 def duck(robot: cozmo.robot.Robot):
