@@ -21,13 +21,16 @@ app.get('/', function(req, res){
     //include menu.html
     const menu = fs.readFileSync('views/menu.html', 'utf8');
 
-    //include menu.html
+    //include navbar.html
     const nav = fs.readFileSync('views/navbar.html', 'utf8');
+
+    //include container.html
+    const con = fs.readFileSync('views/container.html', 'utf8');
 
     //include jumbotron.html
     const jumbo = fs.readFileSync('views/jumbotron.html', 'utf8');
 
-    const renderIndex = Mustache.render(template, {menuOptions: keys}, {menu, nav, jumbo});
+    const renderIndex = Mustache.render(template, {menuOptions: keys}, {menu, nav, jumbo, con});
 
     res.status(200).send(renderIndex)
 })
