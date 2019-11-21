@@ -211,7 +211,7 @@ def duck(robot: cozmo.robot.Robot):
 def Elephant(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabElephant).wait_for_completed()  
 
-# Soung
+# Sound
 
 def sound():
     return f"    robot.play_audio(cozmo.audio.AudioEvents.SfxGameWin)\n    time.sleep(1.0)"
@@ -246,13 +246,16 @@ def driveOffFunction():
 """
     return f'robot.drive_off_charger_contacts().wait_for_completed()\nrobot.drive_straight(distance_mm(100), speed_mmps(50)).wait_for_completed()\nrobot.move_lift(-3)\nrobot.turn_in_place(degrees(180)).wait_for_completed()\nrobot.set_head_angle(degrees(0)).wait_for_completed()\ntime.sleep(0.5)\nrobot.drive_straight(distance_mm(-60), speed_mmps(50)).wait_for_completed()\n'
 
-async def pop_a_wheelie
+async def pop_a_wheelie():
     '''
     Tell Cozmo to pop a wheelie on a cube that is placed in front of him.
     This example demonstrates Cozmo driving to a cube and pushing himself onto
     his back by pushing his lift against that cube.
     '''
     return f'print("Cozmo is waiting until he sees a cube")\ncube = await robot.world.wait_for_observed_light_cube()\nprint("Cozmo found a cube, and will now attempt to pop a wheelie on it")\naction = robot.pop_a_wheelie(cube, num_retries=2)\nawait action.wait_for_completed()\n'
+
+def roll_a_cube():
+    pass
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
