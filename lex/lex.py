@@ -95,7 +95,8 @@ def PartyMode(unused_param):
     var_string = "        time.sleep(0.1)"
     return var_string
 
-def Light(param):
+def Lights(param):
+    param = param.lower()
     return f"    robot.set_all_backpack_lights(cozmo.lights.+'{param}'+_light)\n        time.sleep(1000)"
 
     
