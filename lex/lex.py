@@ -18,14 +18,15 @@ def isNumber(maybe_number):
     return isinstance(maybe_number, int) or isinstance(maybe_number, float)
 
 # #Cozmo functions
-''' Move functions
+""" Move functions
     -lift
     -moveforward
     -movebackward
     -turn
-'''
+"""
 
 def sayhello(string_to_say):
+    print(f"string_to_say: {string_to_say}")
     return f"    robot.say_text('{string_to_say}').wait_for_completed()"
 
 def lift(numbertolift):
@@ -42,7 +43,7 @@ def move(distance_speed):
     else:
         param1 = 150
         param2 = 50
-    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2})).wait_for_completed()"
 
 def moveback(negativedistance_speed):
     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
@@ -53,7 +54,7 @@ def moveback(negativedistance_speed):
     else:
         param1 = -150
         param2 = 50
-    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2})).wait_for_completed()"
 
 def turn(degrees):
     # Turn 90 degrees to the left.
@@ -105,7 +106,9 @@ def function_getter_from_JSON(JSON):
         
         list_of_func_params = eachFuncParam.split(" ")
         str_func = list_of_func_params[0]
-        str_param = list_of_func_params[1]
+        list_param = list_of_func_params[1:]
+        
+        str_param = " ".join(list_param)
 
         function = LMR_to_func_dict.get(str_func)
 
