@@ -236,14 +236,15 @@ def cubeThreeLights():
 # Drive Off
 
 def driveOffFunction():
-"""
+    '''
     drive off the charger
     Start moving the lift down
     turn around to look at the charger
     Tilt the head to be level
     wait half a second to ensure Cozmo has seen the charger
     drive backwards away from the charger
-"""
+    '''
+
     return f'robot.drive_off_charger_contacts().wait_for_completed()\nrobot.drive_straight(distance_mm(100), speed_mmps(50)).wait_for_completed()\nrobot.move_lift(-3)\nrobot.turn_in_place(degrees(180)).wait_for_completed()\nrobot.set_head_angle(degrees(0)).wait_for_completed()\ntime.sleep(0.5)\nrobot.drive_straight(distance_mm(-60), speed_mmps(50)).wait_for_completed()\n'
 
 async def pop_a_wheelie():
@@ -262,6 +263,9 @@ async def roll_a_cube():
     The cube should be centered in front of him.
     '''
     return f'await robot.set_head_angle(degrees(-5.0)).wait_for_completed()\nprint("Cozmo is waiting until he sees a cube")\ncube = await robot.world.wait_for_observed_light_cube()\nprint("Cozmo found a cube, and will now attempt to roll with it:")\naction = robot.roll_cube(cube, check_for_object_on_top=True, num_retries=2)\nawait action.wait_for_completed()\nprint("result:", action.result)\n'
+
+def pickupCube():
+    pass
 
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
