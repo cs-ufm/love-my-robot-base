@@ -59,6 +59,12 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
+def celebration():
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
+
+def Hiccup():
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()"
+    
 def tap(robot: cozmo.robot.Robot):
         # Move the lift to the top, and wait for it to get there
         robot.set_lift_height(1).wait_for_completed()
@@ -74,8 +80,6 @@ def print_Name(robot: cozmo.robot.Robot):
     name = input('What’s your name ? ')
     print(“Hello {}”.format(name)    
           
-def celebration(action):
-    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{action}'+).wait_for_completed()"     
 
 def message_handler(message):
     """Converts message string to JSON.
@@ -100,8 +104,8 @@ LMR_to_func_dict = {
      "MOVE": move,
      "MOVEBACK": moveback,
      "TURN": turn,
-     "WIN": celebration
-
+     "WIN": celebration,
+     "HICCUP": Hiccup
  }
 
 def function_getter_from_JSON(JSON):
@@ -197,8 +201,8 @@ def celebration(robot: cozmo.robot.Robot):
 # def celebration(robot: cozmo.robot.Robot):
 #     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
-def Hiccup(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
+# def Hiccup(robot: cozmo.robot.Robot):
+#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
 
 def Surprise(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()  
