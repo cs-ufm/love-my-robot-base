@@ -95,6 +95,8 @@ def PartyMode(unused_param):
     var_string = "        time.sleep(0.1)"
     return var_string
 
+def Light(param):
+    return f"    robot.set_all_backpack_lights(cozmo.lights.+'{param}'+_light)\n        time.sleep(1000)"
 
     
 # def tap(robot: cozmo.robot.Robot):
@@ -141,7 +143,8 @@ LMR_to_func_dict = {
      "HICCUP": Hiccup,
      "SURPRISE": Surprise,
      "EXCITED": Excited,
-     "PARTY": PartyMode
+     "PARTY": PartyMode,
+     "LIGHT": Light
 }
 
 def function_getter_from_JSON(JSON):
