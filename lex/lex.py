@@ -233,6 +233,11 @@ def cubeTwoLights():
 def cubeThreeLights():
     return f'cube3 = robot.world.get_light_cube(LightCube3Id)\n if cube3 is not None:\n    cube3.set_lights(cozmo.lights.blue_light)\n else:\n    cozmo.logger.warning("Cozmo is not connected to a LightCube3Id cube - check the battery.")\n time.sleep(10)\n'
 
+# Drive Off
+
+def driveOffFunction():
+    pass
+
 if __name__ == "__main__":
     """We start asyncSUB() and Flask.
 
