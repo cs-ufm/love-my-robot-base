@@ -40,7 +40,7 @@ def move(distance_speed):
     else:
         param1 = 150
         param2 = 50
-    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2})).wait_for_completed()"
 
 def moveback(negativedistance_speed):
     # Drive backwards for 150 millimeters at 50 millimeters-per-second.
@@ -51,12 +51,16 @@ def moveback(negativedistance_speed):
     else:
         param1 = -150
         param2 = 50
-    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2}).wait_for_completed())"
+    return f"    robot.drive_straight(distance_mm({param1}), speed_mmps({param2})).wait_for_completed()"
 
 def turn(degrees):
+    int(degrees)
     # Turn 90 degrees to the left.
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
+
+def celebration(action):
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{action}'+).wait_for_completed()" 
     
     
 
@@ -81,7 +85,8 @@ LMR_to_func_dict = {
      "SAY" : sayhello,
      "LIFT": lift,
      "MOVE": move,
-     "MOVEBACK": moveback
+     "MOVEBACK": moveback,
+     "TURN": turn
 
  }
 
@@ -173,8 +178,8 @@ def asyncSUB():
 
 
 #Animations 5
-def celebration(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
+# def celebration(robot: cozmo.robot.Robot):
+#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
 def Hiccup(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
