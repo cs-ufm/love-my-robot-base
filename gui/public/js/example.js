@@ -1,4 +1,14 @@
 $(document).ready(function() {
+    $('.run').click(function(){
+        $.get('/send', function(data, status) {
+            console.log(`${data.message} and status is ${status}`)
+            alert(data.message)
+            setTimeout(function() {
+                location.reload();
+            }, 100);
+        })
+    })
+
     $('.li1').click(function() {
         console.log("hola")
         let name = $(this).text()
