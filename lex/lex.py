@@ -78,7 +78,21 @@ def Excited(ununsed_param):
 
 
     
-    
+def tap(robot: cozmo.robot.Robot):
+        # Move the lift to the top, and wait for it to get there
+        robot.set_lift_height(1).wait_for_completed()
+
+        # Move the lift down fairly quickly for 0.1 seconds
+	robot.move_lift(-3.5)
+	time.sleep(0.1)
+
+        # Move the lift back to the top quickly, and wait for it to get there
+	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
+
+def print_Name(robot: cozmo.robot.Robot):
+    name = input('What’s your name ? ')
+    print(“Hello {}”.format(name)    
+          
 
 def message_handler(message):
     """Converts message string to JSON.
@@ -180,10 +194,6 @@ def asyncSUB():
     message = p.get_message()
     print(f"asyncSUB: message: {message}")
 
-
-
-
-
 #Animations 5  
 
 def Sneeze(robot: cozmo.robot.Robot):
@@ -214,6 +224,5 @@ if __name__ == "__main__":
 @app.route('/')
 def hello_world():
     cozmo.run_program(Elephant)
-
 
 
