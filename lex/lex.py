@@ -162,6 +162,7 @@ LMR_to_func_dict = {
      "SAY" : sayhello,
      "COUNT": Count,
      "YES": Yes,
+     "SOUND": sound,
      "LIFT": lift,
      "MOVE": move,
      "MOVEBACK": moveback,
