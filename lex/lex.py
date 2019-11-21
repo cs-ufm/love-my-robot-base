@@ -62,10 +62,27 @@ def turn(degrees):
     # Note: To turn to the right, just use a negative number.
     return f"    robot.turn_in_place(degrees({degrees})).wait_for_completed()"
 
-def celebration(action):
-    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLab+'{action}'+).wait_for_completed()" 
+def celebration():
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()" 
+
+def Hiccup():
+    return f"    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()"
     
-    
+def tap(robot: cozmo.robot.Robot):
+        # Move the lift to the top, and wait for it to get there
+        robot.set_lift_height(1).wait_for_completed()
+
+        # Move the lift down fairly quickly for 0.1 seconds
+	robot.move_lift(-3.5)
+	time.sleep(0.1)
+
+        # Move the lift back to the top quickly, and wait for it to get there
+	robot.set_lift_height(1, accel=20, max_speed=20).wait_for_completed()
+
+def print_Name(robot: cozmo.robot.Robot):
+    name = input('What’s your name ? ')
+    print(“Hello {}”.format(name)    
+          
 
 def message_handler(message):
     """Converts message string to JSON.
@@ -90,8 +107,8 @@ LMR_to_func_dict = {
      "MOVE": move,
      "MOVEBACK": moveback,
      "TURN": turn,
-     "WIN": celebration
-
+     "WIN": celebration,
+     "HICCUP": Hiccup
  }
 
 def function_getter_from_JSON(JSON):
@@ -163,15 +180,17 @@ def asyncSUB():
 #     # Turn 90 degrees to the left.
 #     # Note: To turn to the right, just use a negative number.
 #     robot.turn_in_place(degrees(90)).wait_for_completed()
-
-
-
+ 
+#Animations
 #Animations 5
+
+def celebration(robot: cozmo.robot.Robot):
+    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 # def celebration(robot: cozmo.robot.Robot):
 #     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabWin).wait_for_completed()  
 
-def Hiccup(robot: cozmo.robot.Robot):
-    robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
+# def Hiccup(robot: cozmo.robot.Robot):
+#     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabHiccup).wait_for_completed()  
 
 def Surprise(robot: cozmo.robot.Robot):
     robot.play_anim_trigger(cozmo.anim.Triggers.CodeLabSurprise).wait_for_completed()  
@@ -207,6 +226,5 @@ if __name__ == "__main__":
 @app.route('/')
 def hello_world():
     cozmo.run_program(Elephant)
-
 
 
