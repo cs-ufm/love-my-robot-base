@@ -8,7 +8,6 @@ const port = 8080
 
 app.use(express.static('public'))
 
-var engines = require('consolidate');
 
 app.get('/', function(req, res){
     const template = fs.readFileSync('views/index.html', 'utf8');
