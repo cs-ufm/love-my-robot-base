@@ -16,4 +16,8 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD [ "node", "server.js" ]
+
+CMD [ "node", "server.js", "0.0.0.0", "-p", "8080"]
+
+# docker pull lindseymaite/cozmo:1.0
+# docker run -it -p 8080:8080 lindseymaite/cozmo:1.0

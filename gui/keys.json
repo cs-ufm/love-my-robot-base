@@ -1,21 +1,120 @@
-{
-    "move" : {
-        "drive":["forward", "backward", "square"],
-        "turn" : ["left", "right"],
-        "lift" : ["lift"]
+[
+    {
+        "name": "move",
+        "options": [
+            {
+                "name": "forward",
+                "code": "MOVE",
+                "description" : "Make Cozmo go forward",
+                "no-input" : true
+            },
+            {
+                "name": "backward",
+                "code": "MOVE",
+                "description" : "Make Cozmo go backward",
+                "no-input" : true
+            },
+            {
+                "name": "square",
+                "code": "SQUARE",
+                "description" : "Cozmo makes a square",
+                "no-input" : true
+            },
+            {
+                "name": "left",
+                "code": "TURN",
+                "description" : "Turn left",
+                "no-input" : true
+            },
+            {
+                "name": "right",
+                "code": "TURN",
+                "description" : "Turn right" ,
+                "no-input" : true
+            },
+            {
+                "name": "lift",
+                "code": "LIFT",
+                "description" : "Lift a cube",
+                "no-input" : true
+            }
+        ]
     },
-
-    "sounds" : ["yes", "count", "math", "say", "song"],
-
-    "cozmo-lights" : ["red", "blue", "green", "white"],
-
-    "animations" : ["happy", "sad"],
-
-    "cubes" : {
-        "lights" : ["red", "blue", "green"],
-        "pickup" : ["pickpup"],
-        "drop" : ["drop"],
-        "roll" : ["roll"],
-        "wheelie" : ["wheelie"]
+    {
+        "name": "sounds",
+        "options": [
+            {
+                "name": "yes",
+                "code": "YES",
+                "description" : "Make Cozmo say yes!",
+                "no-input" : true
+            },
+            {
+                "name": "count",
+                "code": "COUNT",
+                "description" : "Cozmo counts for you",
+                "no-input" : false,
+                "jscode" : "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true'>Choose your number</button><div class='dropdown-menu'><a class='dropdown-item'>One</a><a class='dropdown-item'>Two</a><a class='dropdown-item'>Three</a></div></div>"
+            },
+            {
+                "name": "math",
+                "code": "MATH",
+                "description" : "Cozmo know the maths",
+                "no-input" : false,
+                "jscode" : "<input type='text' name='math'>"
+            },
+            {
+                "name": "song",
+                "code": "SOUND",
+                "description" : "Choose your song",
+                "no-input" : true
+            }
+        ]
+    },
+    {
+        "name": "cozmo-lights",
+        "options": [
+            {
+                "name": "red",
+                "code": "LIGHT RED",
+                "description" : "Turn the red light in Cozmo",
+                "no-input" : true
+            },
+            {
+                "name": "blue",
+                "code": "LIGHT BLUE",
+                "description" : "Blue like the ocean",
+                "no-input" : true
+            },
+            {
+                "name": "green",
+                "code": "LIGHT GREEN",
+                "description" : "Like green tea?",
+                "no-input" : true
+            },
+            {
+                "name": "white",
+                "code": "LIGHT WHITE",
+                "description" : "Turn the white light on",
+                "no-input" : true
+            }
+        ]
+    },
+    {
+        "name": "animations",
+        "options": [
+            {
+                "name": "happy",
+                "code": "ANIMATION",
+                "description" : "Cozmo shows you how to smile",
+                "no-input" : true
+            },
+            {
+                "name": "sad",
+                "code": "ANIMATION",
+                "description" : "Cozmo isn't feeling very good",
+                "no-input" : true
+            }
+        ]
     }
-}
+]
