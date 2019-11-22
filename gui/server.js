@@ -24,8 +24,8 @@ app.get('/', function(req, res){
     //include navbar.html
     const nav = fs.readFileSync('views/navbar.html', 'utf8');
 
-    //include container.html
-    const con = fs.readFileSync('views/container.html', 'utf8');
+    //include stack.html
+    const stack = fs.readFileSync('views/stack.html', 'utf8');
 
     //include jumbotron.html
     const jumbo = fs.readFileSync('views/jumbotron.html', 'utf8');
@@ -33,7 +33,7 @@ app.get('/', function(req, res){
     //include modal.html
     const modal = fs.readFileSync('views/modal.html', 'utf8');
 
-    const renderIndex = Mustache.render(template, {menuOptions: keys}, {menu, nav, jumbo, con, modal});
+    const renderIndex = Mustache.render(template, {menuOptions: keys}, {menu, nav, jumbo, stack, modal});
 
     res.status(200).send(renderIndex)
 })

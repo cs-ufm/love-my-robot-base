@@ -9,70 +9,16 @@
     <ul style="margin-top: -{{gap}}px;" class = "{{name}} hide submenu">
     {{#options}}
         <li code = "{{code}}" description = "{{description}}" class = "subli">
-            <!-- <a href="javascript:alert('{{code}}');">{{name}}</a> -->
-            {{> modal}}
+            <!-- Si no necesita input para tirarlo de una al stack -->
+            {{# no-input}}
+                <span data-toggle="modal" data-target=#{{name}}>{{name}}</span>
+            {{/ no-input}}
+            <!-- Si necesita input para mostrar el modal -->
+            {{ ^ no-input}}
+                {{ > modal}}
+            {{/ no-input}}
         </li>
     {{/options}}
     </ul>
 </div>
 {{/menuOptions}}
-
-<!--
-<ul class = "cubes">
-    <li>
-        Cubes
-        <ul>
-            <li>
-                Lights
-                <ul>
-                    {{#keys.cubes.lights}}
-                    <li>
-                        {{.}}
-                    </li>
-                    {{/keys.cubes.lights}}
-                </ul>
-            </li>
-            <li>
-                Pickpup
-                <ul>
-                    {{#keys.cubes.pickup}}
-                    <li>
-                        {{.}}
-                    </li>
-                    {{/keys.cubes.pickup}}
-                </ul>
-            </li>
-            <li>
-                Drop
-                <ul>
-                    {{#keys.cubes.drop}}
-                    <li>
-                        {{.}}
-                    </li>
-                    {{/keys.cubes.drop}}
-                </ul>
-            </li>
-            <li>
-                Roll
-                <ul>
-                    {{#keys.cubes.roll}}
-                    <li>
-                        {{.}}
-                    </li>
-                    {{/keys.cubes.roll}}
-                </ul>
-            </li>
-            <li>
-                Wheelie
-                <ul>
-                    {{#keys.cubes.wheelie}}
-                    <li>
-                        {{.}}
-                    </li>
-                    {{/keys.cubes.wheelie}}
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
--->

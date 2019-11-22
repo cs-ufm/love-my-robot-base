@@ -40,6 +40,10 @@ li.subli {
     text-decoration: none;
     text-align: center;
 }
+.stack{
+    height: 60%;
+    right: 5%;
+}
 /*
 @media screen and (max-width: 900px) {
 ul.sidenav {
