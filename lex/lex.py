@@ -13,10 +13,10 @@ def generate_code(test, cond):
     timestamp = datetime.now().minute
     with open('transpiled/cozmo_generated_program.py', 'w') as f:
         if cond:
-            f.write('import cozmo \nimport cozmo\nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n    '+test+'\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
+            f.write('import cozmo \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n    '+test+'\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
         if not cond:
-            f.write('import cozmo \nimport cozmo\nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n    '+test+'\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
-    import cozmo_generated_program as p
+            f.write('import cozmo \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n    '+test+'\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
+    #import cozmo_generated_program as p
     #try:
         #p.run(p.cozmo_program)
     #except:
@@ -37,7 +37,9 @@ data = {
 "    action = robot.roll_cube(cube, check_for_object_on_top=True, num_retries=2)\n" +
 "    await action.wait_for_completed()\n" +
 "    print(\"result:\", action.result)\n",
-    'TEST': 'print("LA DE VICTOR")'
+    'SAY': 'robot.say_text("Hello World").wait_for_completed()',
+    'DRIVE_TURN': "robot.drive_straight(distance_mm(150),speed_mmps(50)).wait_for_completed()\n" +
+"    robot.turn_in_place(degrees(90)).wait_for_completed()"
 }
 #revisar COZMO.UTIL para sacar medidas y datos
 '''@app.route('/')
@@ -58,8 +60,9 @@ def leer_instrucciones(lista):
 
 #if __name__ == "__main__":
  #   app.run(host="0.0.0.0"
-test = ['FALSE']
+test = ['ROLL_CUBE']
+test1 = ['ROLL_CUBE']
 boolean = False
-if test[0] == 'FALSE':
+if test[0] in test1:
     boolean = True
-generate_code(data['TEST'], boolean)
+generate_code(data[test[0]], boolean)
