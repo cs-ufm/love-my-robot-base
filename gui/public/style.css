@@ -4,6 +4,13 @@
     background-size: 100% 100%;
     min-height: 500px;
 }
+
+.jumbotronxl {
+    background-image: url('./img/cm.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 697px;
+}
 .menu{
     width: 20%;
     height: 140px;
