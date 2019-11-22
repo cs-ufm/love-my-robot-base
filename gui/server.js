@@ -4,6 +4,7 @@ const app = express()
 var bodyParser = require('body-parser');
 const Mustache = require('mustache')
 const fs = require('fs')
+//var $ = require('jquery');
 const port = 8080
 
 app.use(express.static('public'))
@@ -117,7 +118,6 @@ app.get('/actions', function (req, res) {
 app.post('/task-added', function(req, res){
     console.log(req.body);
     act.push(req.body.name);
-
 })
 
 

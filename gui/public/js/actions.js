@@ -1,6 +1,6 @@
 let actions = ["move", "sounds", "cozmo-lights", "animations"]
 $( document ).ready(function() {
-
+    console.log("document on")
     // display and hide options from menu
     for (let i = 0; i < actions.length; i++) {
         $(`.${actions[i]}`).click(function(){
@@ -12,10 +12,16 @@ $( document ).ready(function() {
                 }
             }
         });
-    }
+    }    
+});
+$( window ).on( "load", function() {
+    console.log( "window loaded" );
 
-    // update code from modal
-    //$(".subli").click(function(){
-    //        let putInStack = document.getElementsByClassName(actions[i])[1].classList.remove('hide') }
-    //    });
+    // put li instack with its attributes
+    $(".push-to-stack").click(function(event){
+        $("#cozmo-stack").append('<li class="list-group-item" code='+event.target.getAttribute("code")+'>'+event.target.name+'</li>');
+        let newItem = event.target.getAttribute("code")
+        console.log(newItem)
+        $.post('/task-added', {task:newItem});
+    });
 });
