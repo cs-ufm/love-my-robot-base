@@ -44,10 +44,11 @@
         "name": "sounds",
         "options": [
             {
-                "name": "yes",
+                "name": "say",
                 "code": "YES",
                 "description" : "Make Cozmo say yes!",
-                "no-input" : true
+                "no-input" : false,
+                "jscode" : "<div class='dropdown'><button class='btn btn-secondary dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true'>Say smth</button><div class='dropdown-menu'><a class='dropdown-item'>Yes</a><a class='dropdown-item'><a class='dropdown-item'>Hello World!</a><a class='dropdown-item'><input type='text' name='say' placeholder='Your input'></a></div></div>"
             },
             {
                 "name": "count",
@@ -84,7 +85,7 @@
                 "name": "blue",
                 "code": "LIGHT BLUE",
                 "description" : "Blue like the ocean",
-                "no-input" : true
+                "no-input" : false
             },
             {
                 "name": "green",
