@@ -8,6 +8,7 @@ const port = 8080
 
 app.use(express.static('public'))
 
+let act = ['Jose', 'Luis']  
 
 app.get('/', function(req, res){
     const template = fs.readFileSync('views/index.html', 'utf8');
@@ -68,11 +69,18 @@ app.get('/home', function (req, res) {
 
 
 app.get('/actions', function (req, res) {
+
     const template = fs.readFileSync('views/index.html', 'utf8');
 
     // get keys for todo
     const keys_string = fs.readFileSync('./keys.json', 'utf8');
     const keys = JSON.parse(keys_string);
+
+    const action_string = fs.readFileSync('./actions.json', 'utf8');
+    const actions = JSON.parse(action_string);
+
+    //To add a value to our json
+    //actions['actions'].push("Jump")
 
     for (let key in keys) {
         keys[key].gap = ((parseInt(key) + 1) * 140) - 20
@@ -94,7 +102,7 @@ app.get('/actions', function (req, res) {
     const modal = fs.readFileSync('views/modal.html', 'utf8');
 
     const renderIndex = Mustache.render(template, {
-        menuOptions: keys
+        menuOptions: keys, actions_test: actions
     }, {
         menu,
         nav,
@@ -104,6 +112,12 @@ app.get('/actions', function (req, res) {
     });
 
     res.status(200).send(renderIndex)
+})
+
+app.post('/task-added', function(req, res){
+    console.log(req.body);
+    act.push(req.body.name);
+
 })
 
 

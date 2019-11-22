@@ -4,16 +4,13 @@
   </div>
   <div class="card-body">
     <ul class="list-group list-group-flush" id="cozmo-stack">
-        <li code="YES" description="Make Cozmo say yes!" class="list-group-item">YES <button class="remove btn-danger float-right">
-            x
-            </button>
-        </li>
-        <li code="MOVE" description="Make Cozmo go forward" class="list-group-item">
-            Forward
-            <button class="remove btn-danger float-right">
-            x
-            </button>
-        </li>
+        {{#actions_test}}
+          {{#actions}}
+          <li code="YES" description="Make Cozmo say yes!" class="list-group-item"> {{.}} <button class="remove btn-danger float-right"> x </button></li>
+          {{/actions}}
+      {{/actions_test}}
+        
+
     </ul>
   </div>
   <div class="card-footer text-muted">
