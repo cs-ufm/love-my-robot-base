@@ -119,12 +119,9 @@ app.get('/actions', function (req, res) {
     res.status(200).send(renderIndex)
 })
 
-let exp = ['victor']
-
 app.post('/task-added', function(req, res){
-    console.log(req.name);
+    //console.log(req.name);
     //exp.push(req.body.name)
-    //console.log(exp)
     actions['actions'].push(req.body.name)
     console.log(actions['actions'])
     

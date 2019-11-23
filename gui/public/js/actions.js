@@ -19,20 +19,12 @@ $( window ).on( "load", function() {
 
     // put li instack with its attributes
     $(".push-to-stack").click(function(event){
-        $("#cozmo-stack").append('<li class="list-group-item" code='+event.target.getAttribute("code")+'>'+event.target.name+'</li>');
+        $("#cozmo-stack").append('<li class="list-group-item" code='+event.target.getAttribute("code")+'>'+event.target.name+'<button class="remove btn-danger float-right"> x </button></li>');
         let newItem = event.target.getAttribute("code")
-        //console.log(newItem)
-        //let test = {name : "test"}
-        //console.log("antes de entrar");
         $.post('/task-added', {name:newItem}, function(data,status){
             alert("Data: " + data + "\nStatus: " + status);
         }); 
         
-        
-        /*data = {"name":"victor"};
-        var posting = $.post( "/task-added", data );
-        console.log(posting);
-        */
-        console.log(newItem)
+        //console.log(newItem)
     });
 });
