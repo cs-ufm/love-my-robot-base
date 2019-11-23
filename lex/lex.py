@@ -1,5 +1,5 @@
 
-from flask import Flask,render_template
+from flask import Flask,render_template, request
 import json, sys
 
 app = Flask(__name__)
@@ -13,9 +13,15 @@ def generate_code(test, cond):
     timestamp = datetime.now().minute
     with open('transpiled/cozmo_generated_program.py', '+w') as f:
         if cond:
-            f.write('import cozmo \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n    '+test+'\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
+            f.write('import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n')
+            for x in test:
+                f.write('    '+data[x])
+            f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
         if not cond:
-            f.write('import cozmo \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n    '+test+'\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
+            f.write('import cozmo \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n')
+            for y in test:
+                f.write('    '+data[y])
+            f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')    
     #import cozmo_generated_program as p
     #try:
         #p.run(p.cozmo_program)
@@ -84,30 +90,33 @@ data = {
 "    await action.wait_for_completed()\n"
 }
 
-
-
 #revisar COZMO.UTIL para sacar medidas y datos
-'''@app.route('/')
+instruc = []
+@app.route('/Lex', methods=['POST'])
+def lex():
+    req_data = request.get_json()
+    instrucciones = req_data['lmr']
+    leer_instrucciones(instrucciones)
+    return '{}'.format(instruc)
+@app.route('/')
 def hello_world():
-    cozmo.run_program(cozmo_program)
+    
+    
+    return render_template("index.html")
 
-    return render_template("index.html")'''
-
-instrucciones = []
 def leer_instrucciones(lista):
     for i in lista:
-        instrucciones.append(i.split(' '))
-    for x in instrucciones:
+        instruc.append(i.split(' '))
+    for x in instruc:
         try:
             print(x[0],x[1])
         except IndexError:
             print(x[0])
 
-#if __name__ == "__main__":
- #   app.run(host="0.0.0.0"
-test = ['POP_A_WHEELIE']
-test1 = ['POP_A_WHEELIE']
-boolean = False
-if test[0] in test1:
-    boolean = True
-generate_code(data[test[0]], boolean)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
+    test = ['POP_A_WHEELIE']
+    boolean = False
+    #if test[0] in test1:
+     #   boolean = True
+    #generate_code(test1, boolean)
