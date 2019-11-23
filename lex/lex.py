@@ -1,8 +1,11 @@
 
 from flask import Flask,render_template, request
+from flask_cors import CORS
 import json, sys
 
+
 app = Flask(__name__)
+CORS(app)
 from datetime import datetime
 import os
 sys.path.append('c:/Users/justf/+/love-my-robot-base/lex/transpiled')
@@ -121,8 +124,8 @@ def leer_instrucciones(lista):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
-    test = ['POP_A_WHEELIE']
+    test = ['SAY']
     #boolean = False
    # if test[0] in test1:
     #    boolean = True
-    
+
