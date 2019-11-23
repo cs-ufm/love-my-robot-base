@@ -9,7 +9,13 @@ const port = 8080
 
 app.use(express.static('public'))
 
-let act = ['Jose', 'Luis']  
+app.use(express.json());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+let action_string = fs.readFileSync('./actions.json', 'utf8');
+let actions = JSON.parse(action_string);
 
 app.get('/', function(req, res){
     const template = fs.readFileSync('views/index.html', 'utf8');
@@ -77,8 +83,6 @@ app.get('/actions', function (req, res) {
     const keys_string = fs.readFileSync('./keys.json', 'utf8');
     const keys = JSON.parse(keys_string);
 
-    const action_string = fs.readFileSync('./actions.json', 'utf8');
-    const actions = JSON.parse(action_string);
 
     //To add a value to our json
     //actions['actions'].push("Jump")
@@ -115,11 +119,17 @@ app.get('/actions', function (req, res) {
     res.status(200).send(renderIndex)
 })
 
-app.post('/task-added', function(req, res){
-    console.log(req.body);
-    act.push(req.body.name);
-})
+let exp = ['victor']
 
+app.post('/task-added', function(req, res){
+    console.log(req.name);
+    //exp.push(req.body.name)
+    //console.log(exp)
+    actions['actions'].push(req.body.name)
+    console.log(actions['actions'])
+    
+    //act.push(req.body.name);
+})
 
 //app.get('/', (req, res) => res.send('Hello From Express'))
 
