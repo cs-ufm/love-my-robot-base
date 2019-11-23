@@ -4,7 +4,7 @@ var path = require('path')
 var bodyParser = require('body-parser');
 const Mustache = require('mustache')
 const fs = require('fs')
-//var $ = require('jquery');
+var request = require('request');
 const port = 8080
 
 app.use(express.static('public'))
@@ -129,7 +129,6 @@ app.post('/task-added', function(req, res){
 })
 
 
-
 app.post('/delete', function(req, res){
 
     console.log('Deleted:\n', req.body.name);
@@ -144,11 +143,24 @@ app.post('/delete', function(req, res){
     })
 })
 
-const data = require('./actions.json')
+app.post('/Lex', function (req, res){
 
-app.post('http://localhost:5000/Lex', function (req, res){
 
-    res.json(data);
+    var options = {
+        uri: 'http://localhost:5000/Lex',
+        method: 'POST',
+        json: {
+            "lmr": actions['actions']
+        }
+    };
+
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body.id) // Print the shortened url.
+        }
+    });
+
+    //res.json(req.body.name);
 
 })
 
