@@ -6,15 +6,15 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-sys.path.append('c:/Users/justf/LMR/love-my-robot-base/lex/transpiled')
+sys.path.append('C:/Users/rmfer/Desktop/UFM/Sexto Semestre (2019)/Proyecto final P3/love-my-robot-base/lex/transpiled') #Hacerlo dinamico
 
 big_string = ''
 def generate_code(test, cond):
     timestamp = datetime.now().minute
     with open('transpiled/cozmo_generated_program.py', '+w') as f:
         if cond:
-            big_string = 'import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n'
-            f.write('import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n')
+            big_string = 'import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n' #verificar async functions
+            f.write('import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n')
             for x in test:
                 f.write('    '+data[x])
                 big_string = big_string +'    '+ data[x]
@@ -48,7 +48,7 @@ data = {
 "    action = robot.roll_cube(cube, check_for_object_on_top=True, num_retries=2)\n" +
 "    await action.wait_for_completed()\n" +
 "    print(\"result:\", action.result)\n",
-    'SAY': 'robot.say_text("Hello World").wait_for_completed()',
+    'SAY': 'robot.say_text("Pelon hueco hahaha").wait_for_completed()',
     'DRIVE_TURN': "robot.drive_straight(distance_mm(150),speed_mmps(50)).wait_for_completed()\n" +
 "    robot.turn_in_place(degrees(90)).wait_for_completed()",
     'COUNT': "for i in range(5):\n" +"\n" +"    robot.say_text(str(i+1)).wait_for_completed()\n",
@@ -103,7 +103,7 @@ def lex():
     req_data = request.get_json()
     instrucciones = req_data['lmr']
     leer_instrucciones(instrucciones)
-    big_string = generate_code(['POP_A_WHEELIE'], True)
+    big_string = generate_code(['SAY'], True)
     return '{}'.format(instruc)
 @app.route('/')
 def hello_world():
