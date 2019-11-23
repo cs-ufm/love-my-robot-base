@@ -101,16 +101,16 @@ data = {
 #revisar COZMO.UTIL para sacar medidas y datos
 instruc = []
 @app.route('/Lex', methods=['POST'])
-@cross_origin()
 def lex():
+    global big_string
     req_data = request.get_json()
     instrucciones = req_data['lmr']
     leer_instrucciones(instrucciones)
-    
+    big_string = generate_code(['POP_A_WHEELIE'], True)
     return '{}'.format(instruc)
 @app.route('/')
 def hello_world():
-    big_string = generate_code(['POP_A_WHEELIE'], True)
+    global big_string
     print(big_string)
     
     return render_template("index.html", big_string=big_string)
