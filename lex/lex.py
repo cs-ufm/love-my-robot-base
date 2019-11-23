@@ -9,15 +9,15 @@ sys.path.append('c:/Users/justf/+/love-my-robot-base/lex/transpiled')
 #robot = cozmo.robot.Robot
 #measures = cozmo.util
 big_string = ''
-def generate_code(test, cond):
+def generate_code(test, cond, big_string):
     timestamp = datetime.now().minute
     with open('transpiled/cozmo_generated_program.py', '+w') as f:
         if cond:
-            big_string = big_string + 'import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n'
+            big_string = 'import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n'
             f.write('import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n')
             for x in test:
                 f.write('    '+data[x])
-                big_string = big_string + data[x]
+                big_string = big_string +'    '+ data[x]
             f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
             big_string = big_string + '\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)'
         if not cond:
@@ -25,7 +25,7 @@ def generate_code(test, cond):
             f.write('import cozmo \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n')
             for y in test:
                 f.write('    '+data[y])
-                big_string = big_string + data[y]
+                big_string = big_string +'   '+ data[y]
             f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
             big_string = big_string + '\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)'   
     #import cozmo_generated_program as p
@@ -34,8 +34,7 @@ def generate_code(test, cond):
     #except:
     #    print('DIDNT FINISH')
     os.rename(r'transpiled/cozmo_generated_program.py', r'transpiled/cozmo_generated_program'+str(timestamp)+r'.py')
-
-
+    return big_string
 #reading json file
 
 
@@ -119,12 +118,10 @@ def leer_instrucciones(lista):
         except IndexError:
             print(x[0])
 
-#if __name__ == "__main__":
- #   app.run(host="0.0.0.0", debug=True)
-test = ['POP_A_WHEELIE']
-   # boolean = False
-    #if test[0] in test1:
-     #   boolean = True
-generate_code(test, True)
-print(big_string)
-
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
+    test = ['POP_A_WHEELIE']
+    #boolean = False
+   # if test[0] in test1:
+    #    boolean = True
+    
