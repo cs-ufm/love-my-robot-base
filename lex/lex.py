@@ -9,7 +9,7 @@ sys.path.append('c:/Users/justf/+/love-my-robot-base/lex/transpiled')
 #robot = cozmo.robot.Robot
 #measures = cozmo.util
 big_string = ''
-def generate_code(test, cond, big_string):
+def generate_code(test, cond):
     timestamp = datetime.now().minute
     with open('transpiled/cozmo_generated_program.py', '+w') as f:
         if cond:
@@ -105,9 +105,10 @@ def lex():
     return '{}'.format(instruc)
 @app.route('/')
 def hello_world():
+    big_string = generate_code(['POP_A_WHEELIE'], True)
+    print(big_string)
     
-    
-    return render_template("index.html")
+    return render_template("index.html", big_string=big_string)
 
 def leer_instrucciones(lista):
     for i in lista:
