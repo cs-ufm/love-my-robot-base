@@ -49,3 +49,19 @@ function show() {
 
 document.getElementById('add').addEventListener('click', add);
 show();
+
+function lex() {
+
+    let name = {
+        "actions": "hello"
+    }
+
+    $.post('http://localhost:5000/Lex', name, function () {
+
+        if (!alert('Posting....\n')) { //Reload page automatic
+            window.location.reload();
+        }
+
+
+    });
+}
