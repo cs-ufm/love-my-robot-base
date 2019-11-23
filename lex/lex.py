@@ -1,6 +1,6 @@
 
 from flask import Flask,render_template, request
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import json, sys
 
 
@@ -101,10 +101,12 @@ data = {
 #revisar COZMO.UTIL para sacar medidas y datos
 instruc = []
 @app.route('/Lex', methods=['POST'])
+@cross_origin()
 def lex():
     req_data = request.get_json()
     instrucciones = req_data['lmr']
     leer_instrucciones(instrucciones)
+    
     return '{}'.format(instruc)
 @app.route('/')
 def hello_world():
