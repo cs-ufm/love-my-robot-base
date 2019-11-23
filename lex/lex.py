@@ -1,16 +1,13 @@
 
 from flask import Flask,render_template, request
-from flask_cors import CORS, cross_origin
-import json, sys
-
+from flask_cors import CORS
+import json, sys, os
+from datetime import datetime
 
 app = Flask(__name__)
-CORS(app)
-from datetime import datetime
-import os
-sys.path.append('c:/Users/justf/+/love-my-robot-base/lex/transpiled')
-#robot = cozmo.robot.Robot
-#measures = cozmo.util
+
+sys.path.append('c:/Users/justf/LMR/love-my-robot-base/lex/transpiled')
+
 big_string = ''
 def generate_code(test, cond):
     timestamp = datetime.now().minute
@@ -31,11 +28,11 @@ def generate_code(test, cond):
                 big_string = big_string +'   '+ data[y]
             f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
             big_string = big_string + '\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)'   
-    #import cozmo_generated_program as p
-    #try:
-        #p.run(p.cozmo_program)
-    #except:
-    #    print('DIDNT FINISH')
+    import cozmo_generated_program as p
+    try:
+        p.run(p.cozmo_program)
+    except:
+        print('DIDNT FINISH')
     os.rename(r'transpiled/cozmo_generated_program.py', r'transpiled/cozmo_generated_program'+str(timestamp)+r'.py')
     return big_string
 #reading json file
@@ -110,24 +107,18 @@ def lex():
     return '{}'.format(instruc)
 @app.route('/')
 def hello_world():
+   
     global big_string
-    print(big_string)
     
     return render_template("index.html", big_string=big_string)
 
 def leer_instrucciones(lista):
     for i in lista:
         instruc.append(i.split(' '))
-    for x in instruc:
-        try:
-            print(x[0],x[1])
-        except IndexError:
-            print(x[0])
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
     test = ['SAY']
-    #boolean = False
+    boolean = False
    # if test[0] in test1:
     #    boolean = True
-
