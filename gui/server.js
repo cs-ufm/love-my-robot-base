@@ -129,7 +129,6 @@ app.post('/task-added', function(req, res){
 })
 
 
-
 app.post('/delete', function(req, res){
 
     console.log('Deleted:\n', req.body.name);
@@ -143,11 +142,6 @@ app.post('/delete', function(req, res){
         message: "Deleted."
     })
 })
-
-const data = require('./actions.json')
-
-
-
 
 app.post('/Lex', function (req, res){
 
