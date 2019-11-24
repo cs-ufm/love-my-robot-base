@@ -1,8 +1,3 @@
-say = 'SAY TEXT'
-test = ['SAY TEXT', 'DRIVE 90']
-instructions = []
-for i in test:
-    instructions.append(i.split(' '))
+from transpiled import pytits
 
-for x in instructions:
-    print(x[0], x[1])
+pytits.funct()

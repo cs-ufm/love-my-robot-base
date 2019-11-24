@@ -6,7 +6,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-sys.path.append('C:/Users/rmfer/Desktop/UFM/Sexto Semestre (2019)/Proyecto final P3/love-my-robot-base/lex/transpiled') #Hacerlo dinamico
+#sys.path.append('C:/Users/rmfer/Desktop/UFM/Sexto Semestre (2019)/Proyecto final P3/love-my-robot-base/lex/transpiled') #Hacerlo dinamico
 
 big_string = ''
 def generate_code(test, cond):
@@ -28,7 +28,7 @@ def generate_code(test, cond):
                 big_string = big_string +'   '+ data[y]
             f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
             big_string = big_string + '\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)'   
-    import cozmo_generated_program as p
+    from transpiled import cozmo_generated_program as p
     try:
         p.run(p.cozmo_program)
     except:
@@ -48,10 +48,10 @@ data = {
 "    action = robot.roll_cube(cube, check_for_object_on_top=True, num_retries=2)\n" +
 "    await action.wait_for_completed()\n" +
 "    print(\"result:\", action.result)\n",
-    'SAY': 'robot.say_text("Pelon hueco hahaha").wait_for_completed()',
-    'DRIVE_TURN': "robot.drive_straight(distance_mm(150),speed_mmps(50)).wait_for_completed()\n" +
-"    robot.turn_in_place(degrees(90)).wait_for_completed()",
-    'COUNT': "for i in range(5):\n" +"\n" +"    robot.say_text(str(i+1)).wait_for_completed()\n",
+    'SAY': 'robot.say_text("{}").wait_for_completed()',
+    'DRIVE_TURN': "robot.drive_straight(distance_mm({}),speed_mmps(50)).wait_for_completed()\n" +
+"    robot.turn_in_place(degrees({})).wait_for_completed()",
+    'COUNT': "for i in range({}):\n" +"\n" +"    robot.say_text(str(i+1)).wait_for_completed()\n",
     'SET_ALL_BACKPACK_LIGHTS': "robot.set_all_backpack_lights(cozmo.lights.red_light)\n" +"    time.sleep(2)\n" +"    robot.set_all_backpack_lights(cozmo.lights.green_light)\n" +"    time.sleep(2)\n" +"    robot.set_all_backpack_lights(cozmo.lights.blue_light)\n" +"    time.sleep(2)\n" +"    robot.set_center_backpack_lights(cozmo.lights.white_light)\n" +"    time.sleep(2)\n" +"    robot.set_all_backpack_lights(cozmo.lights.off_light)\n" +"    time.sleep(2)\n",
     'PLAY_ANIM' : "print(\"Playing Animation Trigger 1:\")\n" +"    robot.play_anim_trigger(cozmo.anim.Triggers.CubePounceLoseSession).wait_for_completed()\n" +"    \n" +"print(\"Playing Animation Trigger 2: (Ignoring the body track)\")\n" +"    robot.play_anim_trigger(cozmo.anim.Triggers.CubePounceLoseSession, ignore_body_track=True).wait_for_completed()\n" +"    \n" +"print(\"Playing Animation 3:\")\n" +"    robot.play_anim(name=\"anim_poked_giggle\").wait_for_completed()\n",
     'DRIVE_SQUARE': "for _ in range(4):\n" +
