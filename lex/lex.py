@@ -1,9 +1,7 @@
 
 from flask import Flask,render_template, request
-from flask_cors import CORS
 import json, sys, os
 from datetime import datetime
-
 app = Flask(__name__)
 
 #sys.path.append('C:/Users/rmfer/Desktop/UFM/Sexto Semestre (2019)/Proyecto final P3/love-my-robot-base/lex/transpiled') #Hacerlo dinamico
@@ -16,21 +14,22 @@ def generate_code(test, cond):
             big_string = 'import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n' #verificar async functions
             f.write('import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n')
             for x in test:
-                f.write('    '+data[x])
-                big_string = big_string +'    '+ data[x]
+                f.write('    '+data[x[0]].format(x[1])+'\n')
+                big_string = big_string +'    '+ data[x[0]].format(x[1])+'\n'
             f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
             big_string = big_string + '\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)'
         if not cond:
             big_string = big_string + 'import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\nasync def cozmo_program(robot: cozmo.robot.Robot):\n'
             f.write('import cozmo \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n')
             for y in test:
-                f.write('    '+data[y])
-                big_string = big_string +'   '+ data[y]
+                f.write('    '+data[y].format(y[1])+'\n')
+                big_string = big_string +'   '+ data[y].format(y[1])+'\n'
             f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
             big_string = big_string + '\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)'   
-    from transpiled import cozmo_generated_program as p
+    #from transpiled import cozmo_generated_program as p
     try:
-        p.run(p.cozmo_program)
+        pass
+        #p.run(p.cozmo_program)
     except:
         print('DIDNT FINISH')
     os.rename(r'transpiled/cozmo_generated_program.py', r'transpiled/cozmo_generated_program'+str(timestamp)+r'.py')
@@ -103,8 +102,8 @@ def lex():
     req_data = request.get_json()
     instrucciones = req_data['lmr']
     leer_instrucciones(instrucciones)
-    big_string = generate_code(['SAY'], True)
-    return '{}'.format(instruc)
+    big_string = generate_code(instruc, True)
+    return '{}'.format(big_string)
 @app.route('/')
 def hello_world():
    
