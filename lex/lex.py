@@ -8,14 +8,18 @@ app = Flask(__name__)
 
 big_string = ''
 def generate_code(test, cond):
-    timestamp = datetime.now().minute
+    timestamp = str(datetime.now()).replace(' ', '_').replace(':','_')
     with open('transpiled/cozmo_generated_program.py', '+w') as f:
         if cond:
             big_string = 'import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n' #verificar async functions
             f.write('import cozmo\nimport time \nfrom cozmo.util import degrees, distance_mm, speed_mmps\ndef cozmo_program(robot: cozmo.robot.Robot):\n')
             for x in test:
-                f.write('    '+data[x[0]].format(x[1])+'\n')
-                big_string = big_string +'    '+ data[x[0]].format(x[1])+'\n'
+                try:
+                    f.write('    '+data[x[0]].format(x[1])+'\n')
+                    big_string = big_string +'    '+ data[x[0]].format(x[1])+'\n'
+                except IndexError:
+                    f.write('    '+data[x[0]]+'\n')
+                    big_string = big_string +'    '+ data[x[0]]+'\n'
             f.write('\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)')
             big_string = big_string + '\ndef run(cozmo_program):\n    cozmo.run_program(cozmo_program)'
         if not cond:
@@ -99,21 +103,22 @@ instruc = []
 @app.route('/Lex', methods=['POST'])
 def lex():
     global big_string
+    global instruc
     req_data = request.get_json()
     instrucciones = req_data['lmr']
     leer_instrucciones(instrucciones)
     big_string = generate_code(instruc, True)
+    instruc = []
     return '{}'.format(big_string)
 @app.route('/')
 def hello_world():
    
     global big_string
-    
     return render_template("index.html", big_string=big_string)
 
 def leer_instrucciones(lista):
     for i in lista:
-        instruc.append(i.split(' '))
+        instruc.append(i.split('&', 1))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
