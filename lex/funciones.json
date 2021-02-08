@@ -1,0 +1,34 @@
+{ "funciones": 
+    {"SAY": [{ 
+      "robot.say_text": "ejemplo"
+      
+    }],
+    "TURN": [{
+      
+    }],
+    "PICK":[{
+
+
+    }],
+    "DRIVE":[{
+
+    }],
+
+    "DRIVE_OFF":[{
+        "Drive_off": "aqui va el codigo transpilado"
+
+    }],
+    "ROLL_CUBE": "await robot.set_head_angle(degrees(-5.0)).wait_for_completed()\n" +
+    "    print(\"Cozmo is waiting until he sees a cube\")\n" +
+    "    cube = await robot.world.wait_for_observed_light_cube()\n" +
+    "    print(\"Cozmo found a cube, and will now attempt to roll with it:\")\n" +
+    "    # Cozmo will approach the cube he has seen and roll it\n" +
+    "    # check_for_object_on_top=True enforces that Cozmo will not roll cubes with anything on top\n" +
+    "    action = robot.roll_cube(cube, check_for_object_on_top=True, num_retries=2)\n" +
+    "    await action.wait_for_completed()\n" +
+    "    print(\"result:\", action.result)\n"
+
+
+    }
+
+  }
